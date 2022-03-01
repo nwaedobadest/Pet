@@ -15,8 +15,10 @@
             include ("inc/bodyleft.php"); 
             include ("inc/bodyright.php"); 
             include ("inc/footer.php"); 
+            include ("inc/login.php");
+            include ("inc/signup.php");
             echo add_cart();
-            echo signUp();
+           
             
         ?>
 
