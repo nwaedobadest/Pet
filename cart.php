@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>Pet Society gi atay</title>
+        <title>Pet Society gi atay hahaha</title>
         <link rel = "stylesheet" href="css/style.css" />
     </head>
 
