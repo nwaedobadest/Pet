@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>Pet Society sadsadsadsa</title>
+        <title>Pet Society</title>
         <link rel = "stylesheet" href="css/style.css" />
     </head>
 
