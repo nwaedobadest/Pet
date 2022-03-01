@@ -502,3 +502,11 @@
     color: #fff;
     line-height: 35px;
 }
+
+#login form table tr td input[type="text"] {
+    border-radius: 5px !important;
+    width: 40px;
+    height: 30px;
+    line-height: 30px;
+}
+

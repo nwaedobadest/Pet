@@ -63,9 +63,14 @@
         }
         else
         {
-            echo "<script>window.open('index.php', '_self')</script>";
-            echo $user_username;
-            
+            while($row=$check_username->fetch()):
+                echo "<script>window.open('index.php', '_self')</script>";
+                echo "<ul>
+                        <li><a href = '#'>Donate</li>
+                        <li><a href = 'signup.php'>Sign Up</li>
+                        <li>".$row['user_username']."</li>
+                    </ul>";
+            endwhile;
         }
 
     }

@@ -4,9 +4,9 @@
             </div><!-- <End of Logo> -->
             <div id = "link">
                 <ul>
-                    <li><a href = "#">Donate</li>
-                    <li><a href = "#">Sign Up</li>
-                    <li><a href = "#">Login</li>
+                    <li><a href = '#'>Donate</li>
+                    <li><a href = 'signup.php'>Sign Up</li>
+                    <li><a href = 'login.php'>Log In</li>
                 </ul>
             </div><!-- <End of Link> -->
             <div id = "search">
