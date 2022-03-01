@@ -7,6 +7,7 @@
     <body>
        
         <?php 
+
             include ("inc/db.php");
             include ("inc/function.php");
             include ("inc/header.php"); 
@@ -15,6 +16,8 @@
             include ("inc/bodyright.php"); 
             include ("inc/footer.php"); 
             echo add_cart();
+            echo signUp();
+            
         ?>
 
     </body>

@@ -1,5 +1,75 @@
 <?php
     
+    function signUp()
+    {
+        include("inc/db.php");
+        if(isset($_POST['sign_up']))
+        {
+            $user_username = $_POST['user_username'];
+            $user_pass = $_POST['user_pass'];
+            $user_email = $_POST['user_email'];
+            $user_contact_number = $_POST['user_contact_number'];
+
+            $user_img = $_FILES['user_img']['name'];
+            $user_img_tmp = $_FILES['user_img']['tmp_name'];
+
+            move_uploaded_file($user_img_tmp,"../uploads/user_profile/$user_img");
+
+            $add_user = $con->prepare("INSERT INTO users_tbl
+            (
+                user_username, 
+                user_pass,
+                user_email,
+                user_contact_number,
+                user_img
+            ) 
+            VALUES
+            (
+                '$user_username',
+                '$user_pass',
+                '$user_email',
+                '$user_contact_number',
+                '$user_img'
+            )");
+
+            if($add_user->execute())
+            {
+                echo "<script>alert('Registration Successful!');</script>";
+                echo "<script>window.open('index.php','_self');</script>";
+            }
+            else
+            {
+                echo "<script>alert('Registration Failed!');</script>";
+            }
+        }
+    }
+
+    function LogIn()
+    {
+        include("inc/db.php");
+
+        $user_username = $_POST['user_username'];
+        $user_pass = $_POST['user_pass'];
+
+        $check_username = $con->prepare("SELECT * FROM users_table WHERE user_username = '$user_username' AND user_pass = '$user_pass'");
+        $check_username->setFetchMode();
+        $check_username->execute();
+
+        $check_username_rowCount = $check_username->rowCount();
+
+        if($check_username_rowCount==0)
+        {
+            echo "<script>alert('Check Username or Password');</script>";
+        }
+        else
+        {
+            echo "<script>window.open('index.php', '_self')</script>";
+            echo $user_username;
+            
+        }
+
+    }
+    
     function getIp() 
     {
         $ip = $_SERVER['REMOTE_ADDR'];
@@ -78,7 +148,6 @@
     {
         include("inc/db.php");
 
-
         $ip = getIp();
         $get_cart_item = $con->prepare("SELECT * FROM cart WHERE ip_add='$ip'");
         $get_cart_item->setFetchMode(PDO:: FETCH_ASSOC);
@@ -132,7 +201,7 @@
                         <td>
                             <input type ='text'  name = 'qty[".$row['cart_id']."]' value='".$row['qty']."' /><input type = 'submit' name = 'up_qty' value = 'Save' />
                         </td>
-                        <td>".$row_pro['pro_price']."</td>
+                        <td>P".$row_pro['pro_price']."</td>
                         <td>";
                             $qty = $row['qty'];
                             $pro_price = $row_pro['pro_price'];
@@ -152,13 +221,19 @@
                     <td>
                         <button id = 'buy_now'>Checkout</button>
                     </td>
+                  
                     <td>
                         <b>Net Total: </b>
                     </td>
                     <td>
-                        <b>$net_total</b>
+                        <b>P$net_total</b>
                     </td>
-                </tr>";
+                   </tr>";
+            echo "<div class = 'Coupon'>
+                    <h2>Apply Coupon Code: </h2>
+                        <input type = 'text' name = 'coupon_code' />
+                        <input type = 'submit' name = 'coupon_code' value = 'Verify' />
+                  </div>";
             }
         
     }
