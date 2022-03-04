@@ -48,24 +48,32 @@
     {
         include("inc/db.php");
 
-        if(isset($_POST['login_user']))
+        session_start();
+        if(!isset($_GET['user_username']))
         {
-            $user_username = $_POST['user_username'];
-            $user_pass = $_POST['user_password'];
-
-            $check_username = $con->prepare("SELECT * FROM users_table WHERE user_username = '$user_username' AND user_password = '$user_pass'");
-            $check_username->execute();
-
-            $check_username_rowCount = $check_username->rowCount();
-
-            if($check_username_rowCount>0)
+            header("location: login.php");
+        }
+        else
+        {
+            if(isset($_POST['login_user']))
             {
-                $_SESSION['user_username'] = $_POST['user_username'];
-                header("location: index.php?user_username=".$_SESSION['user_username']."");
-            }
-            else
-            {
-                echo "<script>alert('Check Username or Password');</script>";
+                $user_username = $_POST['user_username'];
+                $user_pass = $_POST['user_password'];
+
+                $check_username = $con->prepare("SELECT * FROM users_table WHERE user_username = '$user_username' AND user_password = '$user_pass'");
+                $check_username->execute();
+
+                $check_username_rowCount = $check_username->rowCount();
+
+                if($check_username_rowCount>0)
+                {
+                    $_SESSION['user_username'] = $_POST['user_username'];
+                    header("location: index.php?user_username=".$_SESSION['user_username']."");
+                }
+                else
+                {
+                    echo "<script>alert('Check Username or Password');</script>";
+                }
             }
         }
     }
@@ -92,39 +100,44 @@
     {
         include("inc/db.php");
 
+        session_start();
+        if(!isset($_GET['user_username']))
+        {
+            header("location: login.php");
+        }
         if(isset($_POST['cart_btn']))
+        {
+            $pro_id = $_POST['pro_id'];
+            $ip = getIp();
+
+            $check_cart=$con->prepare("SELECT * from cart WHERE pro_id = '$pro_id' AND ip_add = '$ip'");
+            $check_cart->execute();
+
+            $row_check = $check_cart->rowCount();
+
+            if($row_check==1)
             {
-                $pro_id = $_POST['pro_id'];
-                $ip = getIp();
-
-                $check_cart=$con->prepare("SELECT * from cart WHERE pro_id = '$pro_id' AND ip_add = '$ip'");
-                $check_cart->execute();
-
-                $row_check = $check_cart->rowCount();
-
-                if($row_check==1)
-                {
-                    echo "<script>alert('This product already in your cart!');</script>";
-                }
-                else
-                {
-                    $add_cart = $con->prepare("INSERT INTO cart
-                    (
-                        pro_id, 
-                        qty, 
-                        ip_add
-                    ) 
-                    values
-                    (
-                        '$pro_id', 
-                        '1',
-                        '$ip'
-                    )");
+                echo "<script>alert('This product already in your cart!');</script>";
+            }
+            else
+            {
+                $add_cart = $con->prepare("INSERT INTO cart
+                (
+                    pro_id, 
+                    qty, 
+                    ip_add
+                ) 
+                values
+                (
+                    '$pro_id', 
+                    '1',
+                    '$ip'
+                )");
                     
-                    if($add_cart->execute())
-                    {
+                if($add_cart->execute())
+                {
                         echo "<script>window.open('index.php','_self');</script>";
-                    }
+                }
                     else
                     {
                         echo "<script>alert('Try Again');</script>";
