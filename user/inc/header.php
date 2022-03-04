@@ -1,6 +1,6 @@
 <div id = "header">
     <div id = "logo">
-        <a href = "index.php"><img src = "../Pet/uploads/logo.png" /></a>
+        <a href = "index.php"><img src = "/Pet/uploads/logo.png" /></a>
     </div><!-- <End of Logo> -->
     <div id = 'link'>
         <ul>
@@ -11,9 +11,7 @@
                 <a href = ''>Sign Up</a>
             </li>
             <li>    
-                <?php 
-                    
-                ?>
+                <a href = 'login.php'>Log In</a>
             </li>
         </ul>
     </div><!-- <End of Link> -->

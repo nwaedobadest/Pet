@@ -149,102 +149,93 @@
     function cart_display()
     {
         include("inc/db.php");
-        session_start();
-        if(!isset($_SESSION['user_username']))
+        $ip = getIp();
+        $get_cart_item = $con->prepare("SELECT * FROM cart WHERE ip_add='$ip'");
+        $get_cart_item->setFetchMode(PDO:: FETCH_ASSOC);
+        $get_cart_item->execute();
+        $cart_empty = $get_cart_item->rowCount();
+        
+        $net_total = "0";
+        if($cart_empty==0)
         {
-            echo "<script>window.open('login.php?', '_self');</script>";
+            echo "<center><h2>No Items Found in your cart! <a href = 'index.php'>Continue Shopping</a></h2></center>";
         }
         else
         {
-            echo "<script>windows.open('cart.php?user_username=".$_SESSION['user_username']."', '_self');</script>";
-            $ip = getIp();
-            $get_cart_item = $con->prepare("SELECT * FROM cart WHERE ip_add='$ip'");
-            $get_cart_item->setFetchMode(PDO:: FETCH_ASSOC);
-            $get_cart_item->execute();
-            $cart_empty = $get_cart_item->rowCount();
-            
-            $net_total = "0";
-            if($cart_empty==0)
+            if(isset($_POST['up_qty']))
             {
-                echo "<center><h2>No Items Found in your cart! <a href = 'index.php'>Continue Shopping</a></h2></center>";
-            }
-            else
-            {
-                if(isset($_POST['up_qty']))
+                $quantity = $_POST['qty'];
+
+                foreach($quantity as $key=>$value)
                 {
-                    $quantity = $_POST['qty'];
-
-                    foreach($quantity as $key=>$value)
+                    $update_qty = $con->prepare("UPDATE cart set qty = '$value' WHERE cart_id = '$key'");
+                    if($update_qty->execute())
                     {
-                        $update_qty = $con->prepare("UPDATE cart set qty = '$value' WHERE cart_id = '$key'");
-                        if($update_qty->execute())
-                        {
-                            echo "<script>window.open('cart.php','_self');</script>";
-                        }
+                        echo "<script>window.open('cart.php','_self');</script>";
                     }
-                }   
-                echo "<table cellpadding='0' cellspacing = '0'>
-                        <tr>
-                            <th>Image</th>
-                            <th>Product Name</th>
-                            <th>Quantity</th>
-                            <th>Price</th>
-                            <th>Sub Total</th>
-                            <th>Remove</th>
-                        </tr>";
-                while($row=$get_cart_item->fetch()):
-                    $pro_id = $row['pro_id'];
-
-                    $get_pro = $con->prepare("SELECT * FROM product_tbl WHERE pro_id = '$pro_id'");
-                    $get_pro->setFetchMode(PDO:: FETCH_ASSOC);
-                    $get_pro->execute();
-                    $row_pro = $get_pro->fetch();
-
-                    echo"<tr>
-                            <td>
-                                <img src ='./uploads/products/".$row_pro['pro_img']."' />
-                            </td>
-                            <td>
-                                ".$row_pro['pro_name']."
-                            </td>
-                            <td>
-                                <input type ='text'  name = 'qty[".$row['cart_id']."]' value='".$row['qty']."' /><input type = 'submit' name = 'up_qty' value = 'Save' />
-                            </td>
-                            <td>P".$row_pro['pro_price']."</td>
-                            <td>";
-                                $qty = $row['qty'];
-                                $pro_price = $row_pro['pro_price'];
-                                $sub_total = $pro_price*$qty;
-                                echo $sub_total;
-
-                                $net_total = $net_total + $sub_total;
-                            echo"</td>
-                            <td><a href = 'delete.php?delete_id=".$row_pro['pro_id']."'>Delete</a></td>
-                        </tr>";
-                endwhile;
-                echo "<tr>
-                        <td></td>
-                        <td>
-                            <button id = 'buy_now'><a href = 'index.php'>Choose Another Product</a></button>
-                        </td>
-                        <td>
-                            <button id = 'buy_now'>Checkout</button>
-                        </td>
-                    
-                        <td>
-                            <b>Net Total: </b>
-                        </td>
-                        <td>
-                            <b>P$net_total</b>
-                        </td>
+                }
+            }   
+            echo "<table cellpadding='0' cellspacing = '0'>
+                    <tr>
+                        <th>Image</th>
+                        <th>Product Name</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Sub Total</th>
+                        <th>Remove</th>
                     </tr>";
-                echo "<div class = 'Coupon'>
-                        <h2>Apply Coupon Code: </h2>
-                            <input type = 'text' name = 'coupon_code' />
-                            <input type = 'submit' name = 'coupon_code' value = 'Verify' />
-                    </div>";
-            }
-        }
+            while($row=$get_cart_item->fetch()):
+                $pro_id = $row['pro_id'];
+
+                $get_pro = $con->prepare("SELECT * FROM product_tbl WHERE pro_id = '$pro_id'");
+                $get_pro->setFetchMode(PDO:: FETCH_ASSOC);
+                $get_pro->execute();
+                $row_pro = $get_pro->fetch();
+
+                echo"<tr>
+                        <td>
+                            <img src ='../uploads/products/".$row_pro['pro_img']."' />
+                        </td>
+                        <td>
+                            ".$row_pro['pro_name']."
+                        </td>
+                        <td>
+                            <input type ='text'  name = 'qty[".$row['cart_id']."]' value='".$row['qty']."' /><input type = 'submit' name = 'up_qty' value = 'Save' />
+                        </td>
+                        <td>P".$row_pro['pro_price']."</td>
+                        <td>";
+                            $qty = $row['qty'];
+                            $pro_price = $row_pro['pro_price'];
+                            $sub_total = $pro_price*$qty;
+                            echo $sub_total;
+
+                            $net_total = $net_total + $sub_total;
+                        echo"</td>
+                        <td><a href = 'delete.php?delete_id=".$row_pro['pro_id']."'>Delete</a></td>
+                    </tr>";
+            endwhile;
+            echo "<tr>
+                    <td></td>
+                    <td>
+                        <button id = 'buy_now'><a href = 'index.php'>Choose Another Product</a></button>
+                    </td>
+                    <td>
+                        <button id = 'buy_now'>Checkout</button>
+                    </td>
+                
+                    <td>
+                        <b>Net Total: </b>
+                    </td>
+                    <td>
+                        <b>P$net_total</b>
+                    </td>
+                </tr>";
+            echo "<div class = 'Coupon'>
+                    <h2>Apply Coupon Code: </h2>
+                        <input type = 'text' name = 'coupon_code' />
+                        <input type = 'submit' name = 'coupon_code' value = 'Verify' />
+                </div>";
+        }    
     }
 
     function delete_cart_items()
@@ -285,7 +276,7 @@
                     <form method = 'post' enctype='multipart/form-data'>
                     <a href='pro_detail.php?pro_id=".$row_pro['pro_id']."'>
                         <h4>".$row_pro['pro_name']."</h4>
-                        <img src ='./uploads/products/".$row_pro['pro_img']."' />
+                        <img src ='../uploads/products/".$row_pro['pro_img']."' />
                         <center>
                             <button id = 'pro_btn'>
                                 <a href = 'pro_detail.php?pro_id=".$row_pro['pro_id']."'>View</a>
@@ -327,7 +318,7 @@
                     <form method = 'post' enctype='multipart/form-data'>
                     <a href='pro_detail.php?pro_id=".$row_pro['pro_id']."'>
                         <h4>".$row_pro['pro_name']."</h4>
-                        <img src ='./uploads/products/".$row_pro['pro_img']."' />
+                        <img src ='/uploads/products/".$row_pro['pro_img']."' />
                         <center>
                             <button id = 'pro_btn'>
                                 <a href = 'pro_detail.php?pro_id=".$row_pro['pro_id']."'>View</a>
@@ -361,19 +352,19 @@
             $cat_id = $row_pro['cat_id'];
             echo 
                 "<div id = 'pro_img'>
-                    <img src ='./uploads/products/".$row_pro['pro_img']."'/>
+                    <img src ='../uploads/products/".$row_pro['pro_img']."'/>
                     <ul>
                         <li>
-                            <img src ='./uploads/products/".$row_pro['pro_img']."'/>
+                            <img src ='../uploads/products/".$row_pro['pro_img']."'/>
                         </li>
                         <li>
-                            <img src ='./uploads/products/".$row_pro['pro_img2']."'/>
+                            <img src ='../uploads/products/".$row_pro['pro_img2']."'/>
                         </li>
                         <li>
-                            <img src ='./uploads/products/".$row_pro['pro_img3']."'/>
+                            <img src ='../uploads/products/".$row_pro['pro_img3']."'/>
                         </li>
                         <li>
-                            <img src ='./uploads/products/".$row_pro['pro_img4']."'/>
+                            <img src ='../uploads/products/".$row_pro['pro_img4']."'/>
                         </li>
                     </ul>
                   </div>
@@ -407,7 +398,7 @@
                         while($row=$sim_pro->fetch()):
                             echo "<li>
                                     <a href = 'pro_detail.php?pro_id=".$row['pro_id']."'>
-                                        <img src ='./uploads/products/".$row['pro_img']."'/>
+                                        <img src ='../uploads/products/".$row['pro_img']."'/>
                                         <p>Product Name: ".$row['pro_name']."</p>
                                         <p>Price: ".$row['pro_price']."</p>
                                     </a>
@@ -459,7 +450,7 @@
                     <li>
                         <a href='pro_detail.php?pro_id=".$row_cat['pro_id']."'>
                             <h4>".$row_cat['pro_name']."</h4>
-                            <img src ='./uploads/products/".$row_cat['pro_img']."' />
+                            <img src ='../uploads/products/".$row_cat['pro_img']."' />
                             <center>
                                 <button id = 'pro_btn'>
                                     <a href = 'pro_detail.php?pro_id=".$row_cat['pro_id']."'>View</a>
