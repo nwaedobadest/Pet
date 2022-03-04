@@ -1,16 +1,6 @@
 <div id = "header">
     <div id = "logo">
-        <?php
-            session_start();
-            if(isset($_GET['user_username']))
-            {
-                echo "<a href = 'index.php?user_username=".$_GET['user_username']."'><img src = '/Pet/uploads/logo.png' /></a>";
-            }
-            else
-            {
-                echo "<a href = 'index.php'><img src = '/Pet/uploads/logo.png' /></a>";
-            }
-        ?>
+        <a href = "index.php"><img src = "/Pet/uploads/logo.png" /></a>
     </div><!-- <End of Logo> -->
     <div id = 'link'>
         <ul>
@@ -23,14 +13,16 @@
             <li>    
                 <?php 
                     include("inc/db.php");
-                    if(isset($_GET['user_username']))
+                    session_start();
+
+                    if(isset($_SESSION['user_username']))
                     {
-                        echo $_GET['user_username'];
-                    }
-                    
-                    else
-                    {
-                        echo "<li><a href ='login.php'>Log In</a></li>";
+                        $user_id = $_POST['user_id'];
+                        $showUserName = $con->prepare("SELECT * FROM users_table WHERE user_id = '$user_id'");
+                        $showUserName->execute(['user_id'=>$_SESSION['user_username']]);
+                        $fetchUser = $showUserName->fetch();
+
+                        echo $fetchUser['user_username'];
                     }
                 ?>
             </li>

@@ -48,33 +48,18 @@
     {
         include("inc/db.php");
 
-        session_start();
-        if(!isset($_GET['user_username']))
+        if(isset($_POST['login_user']))
         {
-            header("location: login.php");
-        }
-        else
-        {
-            if(isset($_POST['login_user']))
-            {
-                $user_username = $_POST['user_username'];
-                $user_pass = $_POST['user_password'];
+            $user_username = $_POST['user_username'];
+            $user_password = $_POST['user_password'];
+        
+            $fetch_user = $con->prepare("SELECT * FROM users_table WHERE user_username = '$user_username' AND user_password = '$user_password'");
+            $fetch_user->setFetchMode(PDO:: FETCH_ASSOC);
+            $fetch_user->execute();
 
-                $check_username = $con->prepare("SELECT * FROM users_table WHERE user_username = '$user_username' AND user_password = '$user_pass'");
-                $check_username->execute();
-
-                $check_username_rowCount = $check_username->rowCount();
-
-                if($check_username_rowCount>0)
-                {
-                    $_SESSION['user_username'] = $_POST['user_username'];
-                    header("location: index.php?user_username=".$_SESSION['user_username']."");
-                }
-                else
-                {
-                    echo "<script>alert('Check Username or Password');</script>";
-                }
-            }
+            while($row=$fetch_user->fetch()):
+                echo "<script>window.open('index.php?login_user=".$row['user_id']."' ,'_self');</script>";
+            endwhile;
         }
     }
 
@@ -101,49 +86,52 @@
         include("inc/db.php");
 
         session_start();
-        if(!isset($_GET['user_username']))
+        if(!isset($_SESSION['user_username']))
         {
-            header("location: login.php");
+            header("location: index.php/login.php");
         }
-        if(isset($_POST['cart_btn']))
+        else
         {
-            $pro_id = $_POST['pro_id'];
-            $ip = getIp();
-
-            $check_cart=$con->prepare("SELECT * from cart WHERE pro_id = '$pro_id' AND ip_add = '$ip'");
-            $check_cart->execute();
-
-            $row_check = $check_cart->rowCount();
-
-            if($row_check==1)
+            if(isset($_POST['cart_btn']))
             {
-                echo "<script>alert('This product already in your cart!');</script>";
-            }
-            else
-            {
-                $add_cart = $con->prepare("INSERT INTO cart
-                (
-                    pro_id, 
-                    qty, 
-                    ip_add
-                ) 
-                values
-                (
-                    '$pro_id', 
-                    '1',
-                    '$ip'
-                )");
-                    
-                if($add_cart->execute())
+                $pro_id = $_POST['pro_id'];
+                $ip = getIp();
+
+                $check_cart=$con->prepare("SELECT * from cart WHERE pro_id = '$pro_id' AND ip_add = '$ip'");
+                $check_cart->execute();
+
+                $row_check = $check_cart->rowCount();
+
+                if($row_check==1)
                 {
-                        echo "<script>window.open('index.php','_self');</script>";
+                    echo "<script>alert('This product already in your cart!');</script>";
                 }
+                else
+                {
+                    $add_cart = $con->prepare("INSERT INTO cart
+                    (
+                        pro_id, 
+                        qty, 
+                        ip_add
+                    ) 
+                    values
+                    (
+                        '$pro_id', 
+                        '1',
+                        '$ip'
+                    )");
+                        
+                    if($add_cart->execute())
+                    {
+                        echo "<script>window.open('index.php','_self');</script>";
+                    }
                     else
                     {
                         echo "<script>alert('Try Again');</script>";
                     }
                 }
             }
+        }
     }
 
     function cart_count()
