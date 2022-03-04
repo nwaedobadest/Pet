@@ -60,10 +60,8 @@
             $fetch_user_rowCount = $fetch_user->rowCount();
             if($fetch_user_rowCount>0)
             {
-                while($row=$fetch_user->fetch()):
-                    $_SESSION['user_username'] = $row['user_id'];
-                    echo "<script>window.open('index.php?login_user=".$row['user_id']."' ,'_self');</script>";
-                endwhile;
+                $_SESSION['user_username'] = $_POST['user_username'];
+                echo "<script>window.open('index.php?login_user=".$row['user_id']."' ,'_self');</script>";
             }
             else
             {
@@ -71,41 +69,6 @@
             }
         }
     }
-
-    function isLoggedIn()
-    {
-        include("inc/db.php");
-        // if(isset($_GET['login_user']))
-        // {
-        //     $user_id = $_GET['login_user'];
-        //     $fetch_user_username = $con->prepare("SELECT * FROM users_table WHERE user_id = '$user_id'");
-        //     $fetch_user_username->setFetchMode(PDO:: FETCH_ASSOC);
-        //     $fetch_user_username->execute();
-        //     $row = $fetch_user_username->fetch();
-                        
-        //     echo $row['user_username'];
-        // }
-        // else
-        // {
-        //     echo "<li><a href = 'login.php'>Login</a></li>";
-        // }
-        session_start();
-        if(!isset($_SESSION['login_user']))
-        {
-            $user_id = $_GET['login_user'];
-            $fetch_user_username = $con->prepare("SELECT * FROM users_table WHERE user_id = '$user_id'");
-            $fetch_user_username->setFetchMode(PDO:: FETCH_ASSOC);
-            $fetch_user_username->execute();
-            $row = $fetch_user_username->fetch();
-
-            echo $row['user_username'];
-        }
-        else
-        {
-            echo "<script>window.open('login.php', '_self');</script>";
-        }
-    }
-  
     
     function getIp() 
     {
@@ -127,63 +90,45 @@
     {
         include("inc/db.php");
 
-        session_start();
-        if(isset($_SESSION['user_username']))
+        if(isset($_POST['cart_btn']))
         {
-            header("location: index.php/login.php");
-        }
-        else
-        {
-            if(isset($_POST['cart_btn']))
+            $pro_id = $_POST['pro_id'];
+            $ip = getIp();
+
+            $check_cart=$con->prepare("SELECT * from cart WHERE pro_id = '$pro_id' AND ip_add = '$ip'");
+            $check_cart->execute();
+
+            $row_check = $check_cart->rowCount();
+
+            if($row_check==1)
             {
-                $pro_id = $_POST['pro_id'];
-                $ip = getIp();
-
-                $check_cart=$con->prepare("SELECT * from cart WHERE pro_id = '$pro_id' AND ip_add = '$ip'");
-                $check_cart->execute();
-
-                $row_check = $check_cart->rowCount();
-
-                if($row_check==1)
+                echo "<script>alert('This product already in your cart!');</script>";
+            }
+            else
+            {
+                $add_cart = $con->prepare("INSERT INTO cart
+                (
+                    pro_id, 
+                    qty, 
+                    ip_add
+                ) 
+                values
+                (
+                    '$pro_id', 
+                    '1',
+                    '$ip'
+                )");
+                        
+                if($add_cart->execute())
                 {
-                    echo "<script>alert('This product already in your cart!');</script>";
+                    echo "<script>window.open('index.php','_self');</script>";
                 }
                 else
                 {
-                    $add_cart = $con->prepare("INSERT INTO cart
-                    (
-                        pro_id, 
-                        qty, 
-                        ip_add
-                    ) 
-                    values
-                    (
-                        '$pro_id', 
-                        '1',
-                        '$ip'
-                    )");
-                        
-                    if($add_cart->execute())
-                    {
-                        echo "<script>window.open('index.php','_self');</script>";
-                    }
-                    else
-                    {
-                        echo "<script>alert('Try Again');</script>";
-                    }
+                    echo "<script>alert('Try Again');</script>";
                 }
             }
         }
-    }
-
-    function getUserId($userID)
-    {
-        include("inc/db.php");
-
-        $user_userID = $con->prepare("SELECT * FROM users_table WHERE user_id = '$userID'");
-        $user_userID->execute();
-
-        echo $user_userID;
     }
 
     function cart_count()

@@ -12,7 +12,21 @@
             </li>
             <li>    
                 <?php 
-                    echo isLoggedIn();
+                    include("inc/db.php");
+                    if(isset($_GET['login_user']))
+                    {
+                        $user_id = $_GET['login_user'];
+                        $fetch_user_username = $con->prepare("SELECT * FROM users_table WHERE user_id = '$user_id'");
+                        $fetch_user_username->setFetchMode(PDO:: FETCH_ASSOC);
+                        $fetch_user_username->execute();
+                        $row = $fetch_user_username->fetch();
+                        
+                        echo $row['user_username'];
+                    }
+                    else
+                    {
+                        echo "<li><a href = 'login.php'>Login</a></li>";
+                    }
                 ?>
             </li>
         </ul>
