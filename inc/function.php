@@ -48,32 +48,29 @@
     {
         include("inc/db.php");
 
-        $user_username = $_POST['user_username'];
-        $user_pass = $_POST['user_pass'];
-
-        $check_username = $con->prepare("SELECT * FROM users_table WHERE user_username = '$user_username' AND user_pass = '$user_pass'");
-        $check_username->setFetchMode();
-        $check_username->execute();
-
-        $check_username_rowCount = $check_username->rowCount();
-
-        if($check_username_rowCount==0)
+        if(isset($_POST['login_user']))
         {
-            echo "<script>alert('Check Username or Password');</script>";
-        }
-        else
-        {
-            while($row=$check_username->fetch()):
-                echo "<script>window.open('index.php', '_self')</script>";
-                echo "<ul>
-                        <li><a href = '#'>Donate</li>
-                        <li><a href = 'signup.php'>Sign Up</li>
-                        <li>".$row['user_username']."</li>
-                    </ul>";
-            endwhile;
-        }
+            $user_username = $_POST['user_username'];
+            $user_pass = $_POST['user_password'];
 
+            $check_username = $con->prepare("SELECT * FROM users_table WHERE user_username = '$user_username' AND user_password = '$user_pass'");
+            $check_username->execute();
+
+            $check_username_rowCount = $check_username->rowCount();
+
+            if($check_username_rowCount>0)
+            {
+                $_SESSION['user_username'] = $_POST['user_username'];
+                echo "<script>window.open('index.php?user_username=".$_SESSION['user_username']."', '_self');</script>";
+            }
+            else
+            {
+                echo "<script>alert('Check Username or Password');</script>";
+            }
+        }
     }
+
+  
     
     function getIp() 
     {
@@ -95,42 +92,50 @@
     {
         include("inc/db.php");
 
-        if(isset($_POST['cart_btn']))
+        session_start();
+        if(!isset($_SESSION['user_username']))
         {
-            $pro_id = $_POST['pro_id'];
-            $ip = getIp();
-
-            $check_cart=$con->prepare("SELECT * from cart WHERE pro_id = '$pro_id' AND ip_add = '$ip'");
-            $check_cart->execute();
-
-            $row_check = $check_cart->rowCount();
-
-            if($row_check==1)
+            echo "<script>window.open('login.php?', '_self');</script>";
+        }
+        else
+        {
+            if(isset($_POST['cart_btn']))
             {
-                echo "<script>alert('This product already in your cart!');</script>";
-            }
-            else
-            {
-                $add_cart = $con->prepare("INSERT INTO cart
-                (
-                    pro_id, 
-                    qty, 
-                    ip_add
-                ) 
-                values
-                (
-                    '$pro_id', 
-                    '1',
-                    '$ip'
-                )");
-                
-                if($add_cart->execute())
+                $pro_id = $_POST['pro_id'];
+                $ip = getIp();
+
+                $check_cart=$con->prepare("SELECT * from cart WHERE pro_id = '$pro_id' AND ip_add = '$ip'");
+                $check_cart->execute();
+
+                $row_check = $check_cart->rowCount();
+
+                if($row_check==1)
                 {
-                    echo "<script>window.open('index.php','_self');</script>";
+                    echo "<script>alert('This product already in your cart!');</script>";
                 }
                 else
                 {
-                    echo "<script>alert('Try Again');</script>";
+                    $add_cart = $con->prepare("INSERT INTO cart
+                    (
+                        pro_id, 
+                        qty, 
+                        ip_add
+                    ) 
+                    values
+                    (
+                        '$pro_id', 
+                        '1',
+                        '$ip'
+                    )");
+                    
+                    if($add_cart->execute())
+                    {
+                        echo "<script>window.open('index.php','_self');</script>";
+                    }
+                    else
+                    {
+                        echo "<script>alert('Try Again');</script>";
+                    }
                 }
             }
         }
@@ -152,8 +157,14 @@
     function cart_display()
     {
         include("inc/db.php");
-
-        $ip = getIp();
+        session_start();
+        if(isset($_SESSION['user_username']))
+        {
+            echo "<script>window.open('login.php?', '_self');</script>";
+        }
+        else
+        {
+            $ip = getIp();
         $get_cart_item = $con->prepare("SELECT * FROM cart WHERE ip_add='$ip'");
         $get_cart_item->setFetchMode(PDO:: FETCH_ASSOC);
         $get_cart_item->execute();
@@ -240,7 +251,7 @@
                         <input type = 'submit' name = 'coupon_code' value = 'Verify' />
                   </div>";
             }
-        
+        }
     }
 
     function delete_cart_items()
