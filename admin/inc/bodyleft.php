@@ -1,12 +1,12 @@
 <div id = "bodyleft">
-    <h3>Content Management</h3>
+    <h3>Admin Dashboard</h3>
 
     <ul>
-        <li><a href = "index.php">Home</a></li>
-        <li><a href = "index.php?viewall_cat">View All Categories</a></li>
-        <li><a href = "index.php?viewall_sub_cat">View All Sub Categories</a></li>
-        <li><a href = "index.php?add_products">Add New Product</a></li>
-        <li><a href = "index.php?viewall_products">View All Product</a></li>
+        <li><a href = "index.php"><img src="../uploads/home.svg" class="navicons">Donatoins</a></li>
+        <li><a href = "index.php?viewall_cat"><img src="../uploads/category.png" class="navicons">Categories</a></li>
+        <li><a href = "index.php?viewall_sub_cat">Sales Inventory</a></li>
+        <li><a href = "index.php?add_products">Add Product</a></li>
+        <li><a href = "index.php?viewall_products">Products</a></li>
         <li><a href= "index.php?viewall_users">View All Users</a></li> 
 
     </ul>
