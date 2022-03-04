@@ -11,7 +11,9 @@
                 <a href = ''>Sign Up</a>
             </li>
             <li>    
-                <a href = ''>Log In</a>
+                <?php 
+                    
+                ?>
             </li>
         </ul>
     </div><!-- <End of Link> -->

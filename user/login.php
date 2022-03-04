@@ -5,7 +5,7 @@
 
 <div id ="LoginForm">
     <h3>Login</h3>
-    <form method = "POST" enctype = "multipart/form-data">
+    <form method = "POST" action="<?php echo $_SERVER['PHP_SELF']; ?>"; enctype = "multipart/form-data">
         <table>
             <tr>
                 <td>Enter Username: </td>

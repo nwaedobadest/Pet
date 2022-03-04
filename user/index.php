@@ -18,10 +18,6 @@
             // include ("inc/login.php");
             // include ("inc/signup.php");
             echo add_cart();
-         
-     
-           
-            
         ?>
 
     </body>
