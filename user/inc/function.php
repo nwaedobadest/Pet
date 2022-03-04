@@ -57,12 +57,54 @@
             $fetch_user->setFetchMode(PDO:: FETCH_ASSOC);
             $fetch_user->execute();
 
-            while($row=$fetch_user->fetch()):
-                echo "<script>window.open('index.php?login_user=".$row['user_id']."' ,'_self');</script>";
-            endwhile;
+            $fetch_user_rowCount = $fetch_user->rowCount();
+            if($fetch_user_rowCount>0)
+            {
+                while($row=$fetch_user->fetch()):
+                    $_SESSION['user_username'] = $row['user_id'];
+                    echo "<script>window.open('index.php?login_user=".$row['user_id']."' ,'_self');</script>";
+                endwhile;
+            }
+            else
+            {
+                echo "<script>alert('Username or Password in incorrect!');</script>";
+            }
         }
     }
 
+    function isLoggedIn()
+    {
+        include("inc/db.php");
+        // if(isset($_GET['login_user']))
+        // {
+        //     $user_id = $_GET['login_user'];
+        //     $fetch_user_username = $con->prepare("SELECT * FROM users_table WHERE user_id = '$user_id'");
+        //     $fetch_user_username->setFetchMode(PDO:: FETCH_ASSOC);
+        //     $fetch_user_username->execute();
+        //     $row = $fetch_user_username->fetch();
+                        
+        //     echo $row['user_username'];
+        // }
+        // else
+        // {
+        //     echo "<li><a href = 'login.php'>Login</a></li>";
+        // }
+        session_start();
+        if(!isset($_SESSION['login_user']))
+        {
+            $user_id = $_GET['login_user'];
+            $fetch_user_username = $con->prepare("SELECT * FROM users_table WHERE user_id = '$user_id'");
+            $fetch_user_username->setFetchMode(PDO:: FETCH_ASSOC);
+            $fetch_user_username->execute();
+            $row = $fetch_user_username->fetch();
+
+            echo $row['user_username'];
+        }
+        else
+        {
+            echo "<script>window.open('login.php', '_self');</script>";
+        }
+    }
   
     
     function getIp() 
@@ -86,7 +128,7 @@
         include("inc/db.php");
 
         session_start();
-        if(!isset($_SESSION['user_username']))
+        if(isset($_SESSION['user_username']))
         {
             header("location: index.php/login.php");
         }
@@ -134,6 +176,16 @@
         }
     }
 
+    function getUserId($userID)
+    {
+        include("inc/db.php");
+
+        $user_userID = $con->prepare("SELECT * FROM users_table WHERE user_id = '$userID'");
+        $user_userID->execute();
+
+        echo $user_userID;
+    }
+
     function cart_count()
     {
         include("inc/db.php");
@@ -151,92 +203,92 @@
     {
         include("inc/db.php");
         $ip = getIp();
-        $get_cart_item = $con->prepare("SELECT * FROM cart WHERE ip_add='$ip'");
-        $get_cart_item->setFetchMode(PDO:: FETCH_ASSOC);
-        $get_cart_item->execute();
-        $cart_empty = $get_cart_item->rowCount();
-        
-        $net_total = "0";
-        if($cart_empty==0)
-        {
-            echo "<center><h2>No Items Found in your cart! <a href = 'index.php'>Continue Shopping</a></h2></center>";
-        }
-        else
-        {
-            if(isset($_POST['up_qty']))
+            $get_cart_item = $con->prepare("SELECT * FROM cart WHERE ip_add='$ip'");
+            $get_cart_item->setFetchMode(PDO:: FETCH_ASSOC);
+            $get_cart_item->execute();
+            $cart_empty = $get_cart_item->rowCount();
+            
+            $net_total = "0";
+            if($cart_empty==0)
             {
-                $quantity = $_POST['qty'];
-
-                foreach($quantity as $key=>$value)
+                echo "<center><h2>No Items Found in your cart! <a href = 'index.php'>Continue Shopping</a></h2></center>";
+            }
+            else
+            {
+                if(isset($_POST['up_qty']))
                 {
-                    $update_qty = $con->prepare("UPDATE cart set qty = '$value' WHERE cart_id = '$key'");
-                    if($update_qty->execute())
+                    $quantity = $_POST['qty'];
+    
+                    foreach($quantity as $key=>$value)
                     {
-                        echo "<script>window.open('cart.php','_self');</script>";
+                        $update_qty = $con->prepare("UPDATE cart set qty = '$value' WHERE cart_id = '$key'");
+                        if($update_qty->execute())
+                        {
+                            echo "<script>window.open('cart.php','_self');</script>";
+                        }
                     }
-                }
-            }   
-            echo "<table cellpadding='0' cellspacing = '0'>
-                    <tr>
-                        <th>Image</th>
-                        <th>Product Name</th>
-                        <th>Quantity</th>
-                        <th>Price</th>
-                        <th>Sub Total</th>
-                        <th>Remove</th>
+                }   
+                echo "<table cellpadding='0' cellspacing = '0'>
+                        <tr>
+                            <th>Image</th>
+                            <th>Product Name</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Sub Total</th>
+                            <th>Remove</th>
+                        </tr>";
+                while($row=$get_cart_item->fetch()):
+                    $pro_id = $row['pro_id'];
+    
+                    $get_pro = $con->prepare("SELECT * FROM product_tbl WHERE pro_id = '$pro_id'");
+                    $get_pro->setFetchMode(PDO:: FETCH_ASSOC);
+                    $get_pro->execute();
+                    $row_pro = $get_pro->fetch();
+    
+                    echo"<tr>
+                            <td>
+                                <img src ='../uploads/products/".$row_pro['pro_img']."' />
+                            </td>
+                            <td>
+                                ".$row_pro['pro_name']."
+                            </td>
+                            <td>
+                                <input type ='text'  name = 'qty[".$row['cart_id']."]' value='".$row['qty']."' /><input type = 'submit' name = 'up_qty' value = 'Save' />
+                            </td>
+                            <td>P".$row_pro['pro_price']."</td>
+                            <td>";
+                                $qty = $row['qty'];
+                                $pro_price = $row_pro['pro_price'];
+                                $sub_total = $pro_price*$qty;
+                                echo $sub_total;
+    
+                                $net_total = $net_total + $sub_total;
+                            echo"</td>
+                            <td><a href = 'delete.php?delete_id=".$row_pro['pro_id']."'>Delete</a></td>
+                        </tr>";
+                endwhile;
+                echo "<tr>
+                        <td></td>
+                        <td>
+                            <button id = 'buy_now'><a href = 'index.php'>Choose Another Product</a></button>
+                        </td>
+                        <td>
+                            <button id = 'buy_now'>Checkout</button>
+                        </td>
+                    
+                        <td>
+                            <b>Net Total: </b>
+                        </td>
+                        <td>
+                            <b>P$net_total</b>
+                        </td>
                     </tr>";
-            while($row=$get_cart_item->fetch()):
-                $pro_id = $row['pro_id'];
-
-                $get_pro = $con->prepare("SELECT * FROM product_tbl WHERE pro_id = '$pro_id'");
-                $get_pro->setFetchMode(PDO:: FETCH_ASSOC);
-                $get_pro->execute();
-                $row_pro = $get_pro->fetch();
-
-                echo"<tr>
-                        <td>
-                            <img src ='../uploads/products/".$row_pro['pro_img']."' />
-                        </td>
-                        <td>
-                            ".$row_pro['pro_name']."
-                        </td>
-                        <td>
-                            <input type ='text'  name = 'qty[".$row['cart_id']."]' value='".$row['qty']."' /><input type = 'submit' name = 'up_qty' value = 'Save' />
-                        </td>
-                        <td>P".$row_pro['pro_price']."</td>
-                        <td>";
-                            $qty = $row['qty'];
-                            $pro_price = $row_pro['pro_price'];
-                            $sub_total = $pro_price*$qty;
-                            echo $sub_total;
-
-                            $net_total = $net_total + $sub_total;
-                        echo"</td>
-                        <td><a href = 'delete.php?delete_id=".$row_pro['pro_id']."'>Delete</a></td>
-                    </tr>";
-            endwhile;
-            echo "<tr>
-                    <td></td>
-                    <td>
-                        <button id = 'buy_now'><a href = 'index.php'>Choose Another Product</a></button>
-                    </td>
-                    <td>
-                        <button id = 'buy_now'>Checkout</button>
-                    </td>
-                
-                    <td>
-                        <b>Net Total: </b>
-                    </td>
-                    <td>
-                        <b>P$net_total</b>
-                    </td>
-                </tr>";
-            echo "<div class = 'Coupon'>
-                    <h2>Apply Coupon Code: </h2>
-                        <input type = 'text' name = 'coupon_code' />
-                        <input type = 'submit' name = 'coupon_code' value = 'Verify' />
-                </div>";
-        }    
+                echo "<div class = 'Coupon'>
+                        <h2>Apply Coupon Code: </h2>
+                            <input type = 'text' name = 'coupon_code' />
+                            <input type = 'submit' name = 'coupon_code' value = 'Verify' />
+                    </div>";
+            }            
     }
 
     function delete_cart_items()
