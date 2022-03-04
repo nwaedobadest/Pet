@@ -10,7 +10,6 @@
             include ("inc/function.php");
             include ("inc/header.php"); 
             include ("inc/navbar.php"); 
-            
         ?>
         <div class = "cart">
             <form method = "post" enctype = "multipart/form-data">
