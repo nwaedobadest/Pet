@@ -16,13 +16,17 @@ body {
   position: fixed;
   background: white;
   font-family: "Fredoka", sans-serif;
-  box-shadow: 1px 1px 8px #4e4e4e;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 200;
+}
+.firstlayer {
   display: inline-flex;
+  height: 40px;
 }
 .logoSide {
   float: left;
   width: 40vw;
+  display: inline-flex;
 }
 .timeSide {
   padding-left: 5px;
@@ -41,6 +45,9 @@ body {
 .adminName {
   padding: 5px;
 }
+.petsociety {
+  padding: 5px;
+}
 #currentDate {
   padding: 5px;
 }
@@ -50,6 +57,37 @@ body {
   border-radius: 25px;
   margin: 5px;
   background: #5a5bf3;
+}
+.profile .dropbtn {
+  border: none;
+  outline: none;
+  color: #444;
+  display: inline-flex;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+}
+.drop-content {
+  display: none;
+  margin-top: 40px;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 300px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+}
+.drop-content p {
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+.drop-content p:hover {
+  background: #eee;
+}
+.profile:hover .drop-content {
+  display: block;
 }
 #bodyleft {
   width: 15%;
@@ -220,7 +258,4 @@ a:focus {
   padding-top: 3px;
   margin-right: 3px;
   margin-left: 5px;
-}
-.petsociety {
-  padding: 5px;
 }
