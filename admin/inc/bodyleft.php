@@ -1,12 +1,11 @@
 <div id = "bodyleft">
-    <h3>Admin Dashboard</h3>
 
     <ul>
-        <li><a href = "index.php"><img src="../uploads/home.svg" class="navicons">Donatoins</a></li>
-        <li><a href = "index.php?viewall_cat"><img src="../uploads/category.png" class="navicons">Categories</a></li>
-        <li><a href = "index.php?viewall_sub_cat">Sales Inventory</a></li>
-        <li><a href = "index.php?add_products">Add Product</a></li>
-        <li><a href = "index.php?viewall_products">Products</a></li>
+        <li><a href = "index.php"><img src="../uploads/donation2.1.svg" class="navicons">Donations</a></li>
+        <li><a href = "index.php?viewall_cat"><img src="../uploads/categories3.svg" class="navicons">Categories</a></li>
+        <li ><a href = "index.php?viewall_sub_cat"><img src="../uploads/sales4.svg" class="navicons">Sales Inventory</a></li>
+        <li ><a href = "index.php?add_products"><img src="../uploads/box.svg" class="navicons">Product Management</a></li>
+        <li><a href = "index.php?viewall_products"><img src="../uploads/deliver.svg" class="navicons">Deliveries</a></li>
         <li><a href= "index.php?viewall_users">View All Users</a></li> 
 
     </ul>
