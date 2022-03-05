@@ -21,15 +21,35 @@ body {
   display: inline-flex;
 }
 .logoSide {
-  width: 92vw;
+  float: left;
+  width: 40vw;
 }
 .timeSide {
-  width: 8vw;
-  outline: none;
-  background: #eee;
-  padding-top: 8px;
   padding-left: 5px;
   padding-right: 5px;
+  float: right;
+  width: 10vw;
+  background: #eee;
+}
+.profile {
+  float: right;
+  width: 50vw;
+  display: inline-flex;
+  justify-content: right;
+  padding-right: 15px;
+}
+.adminName {
+  padding: 5px;
+}
+#currentDate {
+  padding: 5px;
+}
+#profilePic {
+  width: 25px;
+  height: 25px;
+  border-radius: 25px;
+  margin: 5px;
+  background: #5a5bf3;
 }
 #bodyleft {
   width: 15%;
