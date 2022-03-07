@@ -4,31 +4,23 @@
     </div><!-- <End of Logo> -->
     <div id = 'link'>
         <ul>
-            <li>
-                <a href = ''>Donate</a>
-            </li>
-            <li>
-                <a href = ''>Sign Up</a>
-            </li>
-            <li>    
-                <?php 
-                    include("inc/db.php");
-                    if(isset($_GET['login_user']))
-                    {
-                        $user_id = $_GET['login_user'];
-                        $fetch_user_username = $con->prepare("SELECT * FROM users_table WHERE user_id = '$user_id'");
-                        $fetch_user_username->setFetchMode(PDO:: FETCH_ASSOC);
-                        $fetch_user_username->execute();
-                        $row = $fetch_user_username->fetch();
-                        
-                        echo $row['user_username'];
-                    }
-                    else
-                    {
-                        echo "<li><a href = 'login.php'>Login</a></li>";
-                    }
-                ?>
-            </li>
+            <?php 
+                if(isset($_SESSION['user_username']))
+                {
+                    // echo "<li>".$_SESSION['user_username']."</li>";
+                    echo "<ul>
+                            <li>".$_SESSION['user_username']."</li>
+                            <li><a href = 'myProfile.php?username=".$_SESSION['user_username']."'>My Profile<a/></li>
+                            <li><a href = 'logout.php'>Log Out</a></li>
+                         </ul>";
+                }
+                else
+                {
+                    echo "<li><a href = 'login.php'>Log In</a></li>";
+                    echo "<li><a href = 'Sign Up'>Sign Up</a></li>";
+                    echo "<li><a href = 'Donate'>Donate</a></li>";
+                }
+            ?>
         </ul>
     </div><!-- <End of Link> -->
    
