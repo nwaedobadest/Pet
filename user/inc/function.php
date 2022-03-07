@@ -1,5 +1,5 @@
 <?php
-    
+    session_start();
     function signUp()
     {
         include("inc/db.php");
@@ -47,29 +47,95 @@
     function LogIn()
     {
         include("inc/db.php");
-
         if(isset($_POST['login_user']))
         {
             $user_username = $_POST['user_username'];
             $user_password = $_POST['user_password'];
-        
-            $fetch_user = $con->prepare("SELECT * FROM users_table WHERE user_username = '$user_username' AND user_password = '$user_password'");
-            $fetch_user->setFetchMode(PDO:: FETCH_ASSOC);
-            $fetch_user->execute();
 
-            $fetch_user_rowCount = $fetch_user->rowCount();
-            if($fetch_user_rowCount>0)
+            $fetchuser = $con->prepare("SELECT * FROM users_table WHERE user_username = '$user_username' AND user_password = '$user_password'");
+            $fetchuser->setFetchMode(PDO:: FETCH_ASSOC);
+            $fetchuser->execute();
+            $countUser = $fetchuser->rowCount();
+
+            $row = $fetchuser->fetch();
+            if($countUser>0)
             {
                 $_SESSION['user_username'] = $_POST['user_username'];
-                echo "<script>window.open('index.php?login_user=".$row['user_id']."' ,'_self');</script>";
+                echo "<script>window.open('index.php?login_user=".$_SESSION['user_username']."','_self');</script>";
             }
             else
             {
-                echo "<script>alert('Username or Password in incorrect!');</script>";
+                echo "<script>alert('Username or Password is incorrect!');</script>";
             }
         }
     }
     
+    function myProfile()
+    {
+        include("inc/db.php");
+        $user_id = $_SESSION['user_username'];
+        $fetch_user_username = $con->prepare("SELECT * FROM users_table WHERE user_username = '$user_id'");
+        $fetch_user_username->setFetchMode(PDO:: FETCH_ASSOC);
+        $fetch_user_username->execute();
+
+        $row = $fetch_user_username->fetch();
+
+        echo 
+        "<form method = 'POST' enctype='multipart/form-data'>
+            <table>
+                <tr>
+                    <td>Username: </td>
+                    <td><input type = 'text' name =  'user_username' value = '".$row['user_username']."' /></td>
+                </tr>
+                <tr>
+                    <td>Password: </td>
+                    <td><input type = 'password' name = 'user_password' value = '".$row['user_password']."' /></td>
+                </tr>
+                <tr>
+                    <td>Email: </td>
+                    <td><input type = 'email' name = 'user_email' value = '".$row['user_email']."' /></td>
+                </tr>
+                <tr>
+                    <td>Contact Number: </td>
+                    <td><input type = 'text' name = 'user_contactnumber' value = '".$row['user_contactnumber']."' /></td>
+                </tr>
+                <tr>
+                    <td>Profile Photo: </td>
+                    <td>
+                        <input type = 'file' name = 'user_profilephoto' />
+                        <img src = '../uploads/user_profile/".$row['user_profilephoto']."'  />
+                    </td>
+                </tr>
+            </table>
+            <button name = 'update_user'>Update Profile</button>
+        </form>";
+
+        if(isset($_POST['update_user']))
+        {
+            $user_username = $_POST['user_username'];
+            $user_password =  $_POST['user_password'];
+            $user_contactnumber = $_POST['user_contactnumber'];
+            $user_email = $_POST['user_email'];
+            $user_profilephoto = $_POST['user_profilephoto'];
+
+            $update_user = $con->prepare("UPDATE users_table 
+            SET 
+            user_username = '$user_username',
+            user_password = '$user_password',
+            user_contactnumber = '$user_contactnumber',
+            user_email = '$user_email',
+            user_profilephoto = '$user_profilephoto'
+            WHERE
+            user_id = '$user_id'");
+
+            if($update_user->execute())
+            {
+                echo "<script>alert('Your Information Successfully Updated!');</script>";
+                echo "<script>window.open('myProfile.php', '_self');</script>";
+            }
+        }
+    }
+
     function getIp() 
     {
         $ip = $_SERVER['REMOTE_ADDR'];
@@ -89,7 +155,6 @@
     function add_cart()
     {
         include("inc/db.php");
-
         if(isset($_POST['cart_btn']))
         {
             $pro_id = $_POST['pro_id'];
