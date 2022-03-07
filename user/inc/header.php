@@ -1,6 +1,6 @@
 <div id = "header">
     <div id = "logo">
-        <a href = "index.php"><img src = "/Pet/uploads/logo.png" /></a>
+        <a href = "index.php"><img src = "../uploads/logo2.png" class="logo"/></a>
     </div><!-- <End of Logo> -->
     <div id = 'link'>
         <ul>
@@ -17,7 +17,7 @@
                 else
                 {
                     echo "<li><a href = 'login.php'>Log In</a></li>";
-                    echo "<li><a href = 'Sign Up'>Sign Up</a></li>";
+                    echo "<li><a href = 'signup.php'>Sign Up</a></li>";
                     echo "<li><a href = 'Donate'>Donate</a></li>";
                 }
             ?>
