@@ -74,7 +74,7 @@ body {
   min-width: 300px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
 }
-.drop-content p {
+.drop-content a {
   float: none;
   padding: 10px;
   color: black;
@@ -82,11 +82,11 @@ body {
   display: block;
   text-align: left;
 }
-.drop-content p:hover {
+.drop-content a:hover {
   background: #eee;
 }
 .profile:hover .drop-content {
-  display: block;
+  display: inline;
 }
 #bodyleft {
   display: inline-flex;
@@ -99,7 +99,7 @@ body {
 }
 #bodyleft .leftBody {
   height: 90vh;
-  margin-top: 40px;
+  margin-top: 80px;
 }
 .leftBody h3 {
   text-align: center;
@@ -110,7 +110,6 @@ body {
 }
 
 .leftBody ul {
-  margin-top: 5vh;
   list-style-type: none;
 }
 
@@ -120,7 +119,6 @@ body {
   line-height: 30px;
   margin-top: 5px;
 }
-
 .leftBody ul li a {
   display: inline-block;
   text-decoration: none;
@@ -147,6 +145,20 @@ body {
   width: 25px;
   height: 25px;
   padding: 5px;
+}
+.subList {
+  font-size: 0.8vw;
+  color: white;
+  margin-left: 25px;
+  border-left: 0.7px solid white;
+  margin-bottom: 15px;
+}
+.subList li {
+  float: none;
+  padding-left: 5px;
+}
+.subList li:hover {
+  background: #28287774;
 }
 
 #bodyright {

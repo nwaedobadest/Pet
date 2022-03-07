@@ -3,6 +3,11 @@
 <div class="leftBody">
 <ul>
         <li><a href = "index.php"><img src="../uploads/donation2.1.svg" class="navicons">Donations</a></li>
+            <ul class="subList">
+                <li>Manage Donations</li>
+                <li>Manage Partners</li>
+                <li>Ledger</li>
+            </ul>
         <li><a href = "index.php?cat"><img src="../uploads/categories3.svg" class="navicons">Categories</a></li>
         <li><a href = "index.php?sales_inventory"><img src="../uploads/sales4.svg" class="navicons">Sales Inventory</a></li>
         <li><a href = "index.php?add_products"><img src="../uploads/box.svg" class="navicons">Product Management</a></li>
