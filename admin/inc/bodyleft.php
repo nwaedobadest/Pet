@@ -1,6 +1,7 @@
 <div id = "bodyleft">
 
-    <ul>
+<div class="leftBody">
+<ul>
         <li><a href = "index.php"><img src="../uploads/donation2.1.svg" class="navicons">Donations</a></li>
         <li><a href = "index.php?cat"><img src="../uploads/categories3.svg" class="navicons">Categories</a></li>
         <li><a href = "index.php?sales_inventory"><img src="../uploads/sales4.svg" class="navicons">Sales Inventory</a></li>
@@ -10,6 +11,13 @@
         <li><a href= "index.php?viewall_users"><img src="../uploads/user.svg" class="navicons">View All Users</a></li> 
 
     </ul>
+</div>
+    <div class="leftFooter">
+        <div class="iconContainer">
+            <img src="../uploads/settings.svg" class="footicons">
+            <img src="../uploads/notification.svg" class="footicons">
+        </div>
+    </div>
 </div>
 
 <?php

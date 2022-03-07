@@ -9,6 +9,7 @@
                  <p class="adminName">name of the admin</p>
             </div>
              <div class="drop-content">
+                 <p class="logOut">Profile</p>
                  <p class="logOut">Logout</p>
                  <p class="gotoUser">User Page</p>
              </div>
