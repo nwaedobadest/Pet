@@ -1,4 +1,19 @@
 <?php
+    session_start();
+
+    function fetchadmin()
+    {
+        include("inc/db.php");
+        if(!isset($_SESSION['admin_name']))
+        {
+            echo "<script>window.open('/Pet/user/login.php?', '_self');</script>";
+        }
+        if(isset($_SESSION['admin_name']))
+        {
+            echo "<script>window.open('/Pet/admin/index.php?login_user=".$_SESSION['admin_name']."', '_self');</script>";
+        }
+    }
+
     function add_cat() 
     {
         include("inc/db.php");
