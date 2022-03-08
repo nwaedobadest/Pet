@@ -1,7 +1,3 @@
-<?php
-    include("inc/function.php");
-    echo fetchadmin();
-?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -18,6 +14,8 @@
 
     <body>
     <?php 
+            include ("inc/db.php");
+            include ("inc/function.php");
             include ("inc/header.php"); 
             include ("inc/navbar.php"); 
             include ("inc/bodyleft.php"); 

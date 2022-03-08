@@ -1,16 +1,29 @@
 <?php
     session_start();
-
-    function fetchadmin()
+    
+    function LogIn()
     {
         include("inc/db.php");
-        if(!isset($_SESSION['admin_name']))
+        if(isset($_POST['login_admin']))
         {
-            echo "<script>window.open('/Pet/user/login.php?', '_self');</script>";
-        }
-        if(isset($_SESSION['admin_name']))
-        {
-            echo "<script>window.open('/Pet/admin/index.php?login_user=".$_SESSION['admin_name']."', '_self');</script>";
+            $admin_name = $_POST['admin_name'];
+            $admin_password = $_POST['admin_password'];
+
+            $fetchuser = $con->prepare("SELECT * FROM admintbl WHERE admin_name = '$admin_name' AND admin_password = '$admin_password'");
+            $fetchuser->setFetchMode(PDO:: FETCH_ASSOC);
+            $fetchuser->execute();
+            $countUser = $fetchuser->rowCount();
+
+            $row = $fetchuser->fetch();
+            if($countUser>0)
+            {
+                $_SESSION['admin_name'] = $_POST['admin_name'];
+                echo "<script>window.open('/Pet/admin/index.php?login_user=".$_SESSION['admin_name']."','_self');</script>";
+            }
+            else
+            {
+                echo "<script>alert('Username or Password is incorrect!');</script>";
+            }
         }
     }
 
@@ -233,7 +246,7 @@
             echo "<tr>
                     <td>".$i++."</td>
                     <td>".$row['cat_name']."</td>
-                    <td><a href='index.php?edit_cat=".$row['prod_id']."'>Edit</a></td>
+                    <td><a href='index.php?edit_cat=".$row['prod_id']."'><i class='fa-solid fa-pencil'></i></a></td>
                     <td><a href='delete_cat.php?delete_cat=".$row['prod_id']."'>Delete</a></td>
                  </tr>";
         endwhile;

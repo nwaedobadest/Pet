@@ -1,5 +1,4 @@
 <div id = "bodyleft">
-
 <div class="leftBody">
 <ul>
         <li class =  "donate"><a href = "index.php"><img src="../uploads/donation2.1.svg" class="navicons">Donations</a></li>
@@ -9,11 +8,11 @@
                 <li>Ledger</li>
             </ul>
         <li><a href = "index.php?cat"><img src="../uploads/categories3.svg" class="navicons">Categories</a></li>
-        <li><a href = "index.php?sales_inventory"><img src="../uploads/sales4.svg" class="navicons">Sales Inventory</a></li>
-        <li><a href = "index.php?add_products"><img src="../uploads/box.svg" class="navicons">Product Management</a></li>
-        <li><a href = "index.php?viewall_products"><img src="../uploads/deliver.svg" class="navicons">Deliveries</a></li>
-        <li><a href= "index.php?viewall_users"><img src="../uploads/coupon.svg" class="navicons">Coupons</a></li> 
-        <li><a href= "index.php?viewall_users"><img src="../uploads/user.svg" class="navicons">View All Users</a></li> 
+        <li><a href = "/Pet/admin/index.php?sales_inventory"><img src="../uploads/sales4.svg" class="navicons">Sales Inventory</a></li>
+        <li><a href = "/Pet/admin/index.php?add_products"><img src="../uploads/box.svg" class="navicons">Product Management</a></li>
+        <li><a href = "/Pet/admin/index.php?viewall_products"><img src="../uploads/deliver.svg" class="navicons">Deliveries</a></li>
+        <li><a href= "/Pet/admin/index.php?viewall_users"><img src="../uploads/coupon.svg" class="navicons">Coupons</a></li> 
+        <li><a href= "/Pet/admin/index.php?viewall_users"><img src="../uploads/user.svg" class="navicons">View All Users</a></li> 
 
     </ul>
 </div>
