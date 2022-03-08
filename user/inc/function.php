@@ -2,6 +2,9 @@
     session_start();
     function signUp()
     {
+
+
+        
         include("inc/db.php");
         if(isset($_POST['sign_up']))
         {
