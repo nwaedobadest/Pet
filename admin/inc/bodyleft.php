@@ -2,7 +2,7 @@
 
 <div class="leftBody">
 <ul>
-        <li><a href = "index.php"><img src="../uploads/donation2.1.svg" class="navicons">Donations</a></li>
+        <li class =  "donate"><a href = "index.php"><img src="../uploads/donation2.1.svg" class="navicons">Donations</a></li>
             <ul class="subList">
                 <li>Manage Donations</li>
                 <li>Manage Partners</li>

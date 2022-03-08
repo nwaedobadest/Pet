@@ -1,5 +1,20 @@
 <div id ="bodyright">
-    <h3>View All Categories</h3>
+<div class="addCat">
+    <h3 id = "add_cat">Add Category</h3>
+    <form method = "POST">
+        <table>
+            <tr>
+                <td>Enter Category Name: </td>
+                <td><input type="text" name = "cat_name" /></td>
+                <td> <button name = "add_cat">Add Category</button></td>
+            </tr>
+        </table>
+       
+    </form>
+    </div>
+
+    <div class="caty">
+    <h3>Categories</h3>
     <form method = "POST" enctype = "multipart/form-data">
         <table>
             <tr>
@@ -16,16 +31,10 @@
             </tr>
         </table>
     </form>
-    <h3 id = "add_cat">Add Category</h3>
-    <form method = "POST">
-        <table>
-            <tr>
-                <td>Enter Category Name: </td>
-                <td><input type="text" name = "cat_name" /></td>
-            </tr>
-        </table>
-        <button name = "add_cat">Add Category</button>
-    </form>
+    </div>
+    
+
+   
 </div>
 
 <?php
