@@ -3,9 +3,9 @@
 <ul>
         <li class =  "donate"><a href = "index.php"><img src="../uploads/donation2.1.svg" class="navicons">Donations</a></li>
             <ul class="subList">
-                <li>Manage Donations</li>
-                <li>Manage Partners</li>
-                <li>Ledger</li>
+                <li><a href="index.php?cat">Manage Donations</a></li>
+                <li><a href="index.php?cat">Manage Partners</a></li>
+                <li><a href="index.php?ledger">Ledger</a></li>
             </ul>
         <li><a href = "index.php?cat"><img src="../uploads/categories3.svg" class="navicons">Categories</a></li>
         <li><a href = "/Pet/admin/index.php?sales_inventory"><img src="../uploads/sales4.svg" class="navicons">Sales Inventory</a></li>
@@ -28,6 +28,10 @@
     if(isset($_GET['cat']))
     {
         include("cat.php");
+    }
+    if(isset($_GET['ledger']))
+    {
+        include("Ledger.php");
     }
     if(isset($_GET['sales_inventory']))
     {
