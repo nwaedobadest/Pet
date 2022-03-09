@@ -5,7 +5,7 @@
         <table>
             <tr>
                 <td>Enter Category Name: </td>
-                <td><input type="text" name = "cat_name" /></td>
+                <td style="width:60%"><input type="text" name = "cat_name" /></td>
                 <td> <button name = "add_cat">Add Category</button></td>
             </tr>
         </table>
@@ -18,10 +18,8 @@
     <form method = "POST" enctype = "multipart/form-data">
         <table>
             <tr>
-                <th>Category Id</th>
-                <th>Category Name</th>
-                <th>Edit</th>
-                <th>Delete</th>
+                <th style="width:15%" >Category Id</th>
+                <th colspan = 3 style="width:80%" >Category Name</th>
             </tr>
             <tr>
                 <?php

@@ -246,8 +246,8 @@
             echo "<tr>
                     <td>".$i++."</td>
                     <td>".$row['cat_name']."</td>
-                    <td><a href='index.php?edit_cat=".$row['prod_id']."'>Edit</a></td>
-                    <td><a href='delete_cat.php?delete_cat=".$row['prod_id']."'>Delete</a></td>
+                    <td style = 'width:5%'><a href='index.php?edit_cat=".$row['prod_id']."'><img src = '../uploads/edit 1.svg' class = 'catIcons'></a></td>
+                    <td style = 'width:5%'><a href='delete_cat.php?delete_cat=".$row['prod_id']."'><img src = '../uploads/delete 1.svg' class = 'catIcons'></a></td>
                  </tr>";
         endwhile;
     }
@@ -264,8 +264,8 @@
             echo "<tr>
                     <td>".$i++."</td>
                     <td>".$row['sub_cat_name']."</td>
-                    <td><a href='index.php?edit_sub_cat=".$row['sub_cat_id']."'>Edit</a></td>
-                    <td><a href='delete_cat.php?delete_sub_cat=".$row['sub_cat_id']."'>Delete</a></td>
+                    <td style = 'width:10%'><a href='index.php?edit_sub_cat=".$row['sub_cat_id']."'>Edit</a></td>
+                    <td style = 'width:10%'><a href='delete_cat.php?delete_sub_cat=".$row['sub_cat_id']."'>Delete</a></td>
                  </tr>";
         endwhile;
     }
@@ -326,11 +326,11 @@
             <form method = 'POST'>
                 <table>
                     <tr>
-                        <td>Category Name: </td>
-                        <td><input type='text' name = 'cat_name' value = '".$row['cat_name']."'/></td>
+                        <td style='width:15%'>Category Name: </td>
+                        <td style='width:60%'><input type='text' name = 'cat_name' value = '".$row['cat_name']."'/></td>
+                        <td style='width:25%'><button name = 'update_cat'>Update</button></td>
                     </tr>
                 </table>
-                <button name = 'update_cat'>Update Category</button>
             </form>";
 
             if(isset($_POST['update_cat']))
@@ -347,41 +347,41 @@
         }
     }
 
-    function edit_sub_cat()
-    {
-        include("inc/db.php");
-        if(isset($_GET['edit_sub_cat']))
-        {
-            $sub_cat_id = $_GET['edit_sub_cat'];
-            $fetch_sub_cat_name = $con->prepare("SELECT * from sub_cat WHERE sub_cat_id='$sub_cat_id'");
-            $fetch_sub_cat_name->setFetchMode(PDO:: FETCH_ASSOC);
-            $fetch_sub_cat_name->execute();
-            $row = $fetch_sub_cat_name->fetch();
+    // function edit_sub_cat()
+    // {
+    //     include("inc/db.php");
+    //     if(isset($_GET['edit_sub_cat']))
+    //     {
+    //         $sub_cat_id = $_GET['edit_sub_cat'];
+    //         $fetch_sub_cat_name = $con->prepare("SELECT * from sub_cat WHERE sub_cat_id='$sub_cat_id'");
+    //         $fetch_sub_cat_name->setFetchMode(PDO:: FETCH_ASSOC);
+    //         $fetch_sub_cat_name->execute();
+    //         $row = $fetch_sub_cat_name->fetch();
 
-            echo "<h3>Edit Sub-Category</h3>
-            <form method = 'POST'>
-                <table>
-                    <tr>
-                        <td>Sub-Category Name: </td>
-                        <td><input type='text' name = 'sub_cat_name' value = '".$row['sub_cat_name']."'/></td>
-                    </tr>
-                </table>
-                <button name = 'update_sub_cat'>Update Sub Category</button>
-            </form>";
+    //         echo "<h3>Edit Sub-Category</h3>
+    //         <form method = 'POST'>
+    //             <table>
+    //                 <tr>
+    //                     <td>Sub-Category Name: </td>
+    //                     <td><input type='text' name = 'sub_cat_name' value = '".$row['sub_cat_name']."'/></td>
+    //                 </tr>
+    //             </table>
+    //             <button name = 'update_sub_cat'>Update Sub Category</button>
+    //         </form>";
 
-            if(isset($_POST['update_sub_cat']))
-            {
-                $sub_cat_name = $_POST['sub_cat_name'];
-                $update_sub_cat = $con->prepare("UPDATE sub_cat SET sub_cat_name='$sub_cat_name' WHERE sub_cat_id = '$sub_cat_id'");
+    //         if(isset($_POST['update_sub_cat']))
+    //         {
+    //             $sub_cat_name = $_POST['sub_cat_name'];
+    //             $update_sub_cat = $con->prepare("UPDATE sub_cat SET sub_cat_name='$sub_cat_name' WHERE sub_cat_id = '$sub_cat_id'");
                 
-                if($update_sub_cat->execute())
-                {
-                    echo "<script>alert('Category Updated Successfully!');</script>";
-                    echo "<script>window.open('index.php?viewall_sub_cat','_self');</script>";
-                }
-            }
-        }
-    }
+    //             if($update_sub_cat->execute())
+    //             {
+    //                 echo "<script>alert('Category Updated Successfully!');</script>";
+    //                 echo "<script>window.open('index.php?viewall_sub_cat','_self');</script>";
+    //             }
+    //         }
+    //     }
+    //}
 
     function viewall_users()
     {

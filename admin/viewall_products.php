@@ -3,7 +3,7 @@
     <form method = "POST" enctype = "multipart/form-data">
     <table>
         <tr>
-            <th>Product Id</th>
+            <th style="width:5%">Product Id</th>
             <th>Product Name</th>
             <th>Product Brand</th>
             <th>Product Images</th>
