@@ -230,6 +230,12 @@ table {
 #bodyright form table tr td a {
   text-decoration: none;
   color: #fff;
+  padding: 5px;
+  border-radius: 3px;
+}
+#bodyright form table tr td a:hover {
+  background: hsla(0, 0%, 0%, 0.152);
+  transition: 0.5s;
 }
 
 #bodyright form button {
@@ -286,4 +292,8 @@ table {
   padding-top: 3px;
   margin-right: 3px;
   margin-left: 5px;
+}
+.catIcons {
+  width: 15px;
+  height: 15px;
 }

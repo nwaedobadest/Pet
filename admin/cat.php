@@ -18,10 +18,8 @@
     <form method = "POST" enctype = "multipart/form-data">
         <table>
             <tr>
-                <th>Category Id</th>
-                <th>Category Name</th>
-                <th>Edit</th>
-                <th>Delete</th>
+                <th >Category Id</th>
+                <th colspan = 3 >Category Name</th>
             </tr>
             <tr>
                 <?php
