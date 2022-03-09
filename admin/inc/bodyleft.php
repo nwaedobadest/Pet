@@ -25,6 +25,10 @@
 </div>
 
 <?php
+    if(isset($_GET['cat']))
+    {
+        include("cat.php");
+    }
     if(isset($_GET['manage_donation']))
     {
         include("manage_donation.php");
