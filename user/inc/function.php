@@ -201,15 +201,15 @@
         //     }
         // }
             //check if product is already in the cart
-            if(!in_array($_GET['id'], $_SESSION['cart'])){
-                array_push($_SESSION['cart'], $_GET['id']);
-                $_SESSION['message'] = 'Product added to cart';
-            }
-            else{
-                $_SESSION['message'] = 'Product already in cart';
-            }
-        
-            echo "<script>window.open('index.php','_self');</script>";
+
+           if(isset($_POST['cart_btn']))
+           {
+               $cart = $_SESSION['cart'];
+               array_push($cart, $_POST['pro_id']);
+               $_SESSION['cart'] = $cart;
+               echo "<script>window.open('/Pet/user/index.php?' ,'_self');</script>";  
+           }
+       
     }
 
     function cart_count()
@@ -319,18 +319,51 @@
         if(!empty($_SESSION['cart']))
         {
             include("inc/db.php");
-            $index = "0";
             if(!isset($_SESSION['qty_array']))
             {
                 $_SESSION['qty_array'] = array_fill(0, count($_SESSION['cart']), 1);
             }
-            $display_cart = $con->prepare("SELECT * FROM cart WHERE cart_id IN (".implode(',',$_SESSION['cart']).")");
+            $display_cart = $con->prepare("SELECT * FROM product_tbl WHERE pro_id IN (".implode(',',$_SESSION['cart']).")");
             $display_cart->setFetchMode(PDO:: FETCH_ASSOC);
             $display_cart->execute();
-            
-            while($row_cart = $display_cart->fetch()):
-            endwhile;
+            echo "<table cellpadding='0' cellspacing = '0'>
+                             <tr>
+                                 <th>Image</th>
+                                 <th>Product Name</th>
+                                 <th>Quantity</th>
+                                 <th>Price</th>
+                                 <th>Sub Total</th>
+                                 <th>Remove</th>
+                             </tr>";
 
+            while($row_pro = $display_cart->fetch()):
+                echo "<tr>
+                        <td>
+                        <img src = '../uploads/products/".$row_pro['pro_img']."'  />
+                        </td>
+                        <td>
+                            ".$row_pro['pro_name']."
+                        </td>
+                        <td>
+                            ".array_count_values($_SESSION['cart'])[$row_pro['pro_id']]."
+                        </td>
+                        <td>
+                            ".$row_pro['pro_price']."
+                        </td>
+                        <td>";
+                            $qty = $row_pro['pro_quantity'];
+                            $pro_price = $row_pro['pro_price'];
+                            $sub_total = $qty * $pro_price;
+                            echo $sub_total;
+
+                            $net_total = $net_total + $sub_total;
+                        echo "</td>
+                        <td>
+                        <a href = 'delete.php?delete_id=".$row_pro['pro_id']."'>Delete</a>
+                        </td>";
+                        
+
+            endwhile;
         }
     }
 
@@ -356,7 +389,7 @@
         $_SESSION['qty_array'] = array_values($_SESSION['qty_array']);
     
         $_SESSION['message'] = "Product deleted from cart";
-        header('location: view_cart.php');
+        header('location: cart.php');
     }
 
     function update_cart_quantity()
