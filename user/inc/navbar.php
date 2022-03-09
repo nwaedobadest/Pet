@@ -6,26 +6,25 @@
                         <?php echo all_cat(); ?>
                     </ul>
                 </li>
+                <li> <a href = "#">SERVICES</a></li>
+                <li> <a href = "#">DONATE</a></li>
             </ul>
-            <div id = 'link'>
-        <ul>
-            <?php
-                if(isset($_SESSION['user_username']))
-                {
-                    // echo "<li>".$_SESSION['user_username']."</li>";
-                    echo "
-                            <a>".$_SESSION['user_username']."</a>
-                            <a href = 'myProfile.php?username=".$_SESSION['user_username']."'>My Profile<a/>
-                            <a href = 'logout.php'>Log Out</a>
-                         ";
-                }
-                else
-                {
-                    echo "<a href = 'login.php'>Log In</a>";
-                    echo "<a href = 'signup.php'>Sign Up</a>";
-                    echo "<a href = 'Donate'>Donate</a>";
-                }
+            <!-- <div id = 'link'>
+            <php
+                // if(isset($_SESSION['user_username']))
+                // {
+                //     // echo "<li>".$_SESSION['user_username']."</li>";
+                //     echo "
+                //             <a>".$_SESSION['user_username']."</a>
+                //             <a href = 'myProfile.php?username=".$_SESSION['user_username']."'>My Profile<a/>
+                //             <a href = 'logout.php'>Log Out</a>
+                //          ";
+                // }
+                // else
+                // {
+                //     echo "<a href = 'login.php'>LOGIN</a>";
+                //     echo "<a href = 'login.php'>LOGIN</a>";
+                // }
             ?>
-        </ul>
-    </div>
+    </div> -->
         </div><!-- <End of Navbar> -->

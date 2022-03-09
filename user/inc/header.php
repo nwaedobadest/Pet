@@ -19,8 +19,11 @@
             <input type="text" name = 'user_query' placeholder = "Search products here..">
             <button id = "search_btn" name = "search"><img src = "../uploads/search.svg" class = "searchIcon"></button>
             <button id = "cart_btn"><a href = 'cart.php'>Cart (<?php echo count($_SESSION['cart']); ?>)</a></button>
+            <button id = "cart_btn"><a href = 'cart.php'>LOGIN</a></button>
         </form>
     </div><!-- <End of Search> -->
+
+    
 
     
    <!-- <End of Link> -->
