@@ -1,6 +1,6 @@
 <?php 
     include("inc/function.php");
-    echo LogIn();
+    echo LogInAdmin();
 ?>
 
 <div id ="LoginForm">

@@ -25,7 +25,6 @@
             </tr>
             <tr>
                 <?php
-                    include("inc/function.php"); 
                     echo viewall_category(); 
                 ?>
             </tr>

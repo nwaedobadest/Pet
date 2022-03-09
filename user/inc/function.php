@@ -289,7 +289,7 @@
                             <button id = 'buy_now'><a href = 'index.php'>Choose Another Product</a></button>
                         </td>
                         <td>
-                            <button id = 'buy_now'>Checkout</button>
+                            <button id = 'check_out'>Checkout</button>
                         </td>
                     
                         <td>

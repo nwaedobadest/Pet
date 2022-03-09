@@ -1,7 +1,7 @@
 <?php
     session_start();
-    
-    function LogIn()
+
+    function LogInAdmin()
     {
         include("inc/db.php");
         if(isset($_POST['login_admin']))
@@ -18,7 +18,7 @@
             if($countUser>0)
             {
                 $_SESSION['admin_name'] = $_POST['admin_name'];
-                echo "<script>window.open('/Pet/admin/index.php?login_user=".$_SESSION['admin_name']."','_self');</script>";
+                echo "<script>window.open('/Pet/admin/adminIndex.php?login_user=".$_SESSION['admin_name']."','_self');</script>";
             }
             else
             {
@@ -27,7 +27,7 @@
         }
     }
 
-    function myProfile()
+    function AdminProfile()
     {
         include("inc/db.php");
         if(isset($_SESSION['admin_name']))
@@ -97,11 +97,11 @@
                 if($update_user->execute())
                 {
                     echo "<script>alert('Your Information Successfully Updated!');</script>";
-                    echo "<script>window.open('/Pet/admin/index.php?login_user=".$_SESSION['admin_name']."', '_self');</script>";
+                    echo "<script>window.open('/Pet/admin/adminIndex.php?login_user=".$_SESSION['admin_name']."', '_self');</script>";
                 }
             }
         }
-    }
+    }   
 
     function add_cat() 
     {
@@ -114,7 +114,7 @@
             if($add_cat->execute())
             {
             echo "<script>alert('Category Added Successfully!');</script>"; 
-            echo "<script>window.open('index.php?viewall_cat','_self');</script>";
+            echo "<script>window.open('adminIndex.php?viewall_cat','_self');</script>";
             }
             else
             {
