@@ -58,6 +58,7 @@
             $countUser = $fetchuser->rowCount();
 
             $row = $fetchuser->fetch();
+            $user_role = $row['user_type'];
             if($countUser>0)
             {
                 $_SESSION['user_username'] = $_POST['user_username'];
@@ -68,6 +69,7 @@
                 echo "<script>alert('Username or Password is incorrect!');</script>";
             }
         }
+
     }
     
     function myProfile()
@@ -287,7 +289,7 @@
                             <button id = 'buy_now'><a href = 'index.php'>Choose Another Product</a></button>
                         </td>
                         <td>
-                            <button id = 'buy_now'>Checkout</button>
+                            <button id = 'check_out'>Checkout</button>
                         </td>
                     
                         <td>

@@ -15,7 +15,6 @@
         </tr>
         <tr>
             <?php
-                include("inc/function.php"); 
                 echo view_all_products(); 
             ?>
         </tr>

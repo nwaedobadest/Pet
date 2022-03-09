@@ -1,25 +1,37 @@
 <div id = "bodyleft">
-    <h3>Admin Dashboard</h3>
-
-    <ul>
-        <li><a href = "index.php"><img src="../uploads/home.svg" class="navicons">Donatoins</a></li>
-        <li><a href = "index.php?viewall_cat"><img src="../uploads/category.png" class="navicons">Categories</a></li>
-        <li><a href = "index.php?viewall_sub_cat">Sales Inventory</a></li>
-        <li><a href = "index.php?add_products">Add Product</a></li>
-        <li><a href = "index.php?viewall_products">Products</a></li>
-        <li><a href= "index.php?viewall_users">View All Users</a></li> 
+<div class="leftBody">
+<ul>
+        <li class =  "donate"><a href = "index.php"><img src="../uploads/donation2.1.svg" class="navicons">Donations</a></li>
+            <ul class="subList">
+                <li>Manage Donations</li>
+                <li>Manage Partners</li>
+                <li>Ledger</li>
+            </ul>
+        <li><a href = "index.php?cat"><img src="../uploads/categories3.svg" class="navicons">Categories</a></li>
+        <li><a href = "/Pet/admin/index.php?sales_inventory"><img src="../uploads/sales4.svg" class="navicons">Sales Inventory</a></li>
+        <li><a href = "/Pet/admin/index.php?add_products"><img src="../uploads/box.svg" class="navicons">Product Management</a></li>
+        <li><a href = "/Pet/admin/index.php?viewall_products"><img src="../uploads/deliver.svg" class="navicons">Deliveries</a></li>
+        <li><a href= "/Pet/admin/index.php?viewall_users"><img src="../uploads/coupon.svg" class="navicons">Coupons</a></li> 
+        <li><a href= "/Pet/admin/index.php?viewall_users"><img src="../uploads/user.svg" class="navicons">View All Users</a></li> 
 
     </ul>
 </div>
+    <div class="leftFooter">
+        <div class="iconContainer">
+            <img src="../uploads/settings.svg" class="footicons">
+            <img src="../uploads/notification.svg" class="footicons">
+        </div>
+    </div>
+</div>
 
 <?php
-    if(isset($_GET['viewall_cat']))
+    if(isset($_GET['cat']))
     {
         include("cat.php");
     }
-    if(isset($_GET['viewall_sub_cat']))
+    if(isset($_GET['sales_inventory']))
     {
-        include("sub_cat.php");
+        include("sales_inventory.php");
     }
     if(isset($_GET['viewall_products']))
     {
