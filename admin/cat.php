@@ -18,7 +18,7 @@
     <form method = "POST" enctype = "multipart/form-data">
         <table>
             <tr>
-                <th >Category Id</th>
+                <th style="width:10%" >Category Id</th>
                 <th colspan = 3 >Category Name</th>
             </tr>
             <tr>
