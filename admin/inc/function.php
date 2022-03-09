@@ -18,7 +18,7 @@
             if($countUser>0)
             {
                 $_SESSION['admin_name'] = $_POST['admin_name'];
-                echo "<script>window.open('/Pet/admin/adminIndex.php?login_user=".$_SESSION['admin_name']."','_self');</script>";
+                echo "<script>window.open('/Pet/admin/index.php?login_user=".$_SESSION['admin_name']."','_self');</script>";
             }
             else
             {

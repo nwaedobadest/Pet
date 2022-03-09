@@ -160,167 +160,222 @@
 
     function add_cart()
     {
-        include("inc/db.php");
-        if(isset($_POST['cart_btn']))
-        {
-            $pro_id = $_POST['pro_id'];
-            $ip = getIp();
+        // include("inc/db.php");
+        // if(isset($_POST['cart_btn']))
+        // {
+        //     $pro_id = $_POST['pro_id'];
+        //     $ip = getIp();
 
-            $check_cart=$con->prepare("SELECT * from cart WHERE pro_id = '$pro_id' AND ip_add = '$ip'");
-            $check_cart->execute();
+        //     $check_cart=$con->prepare("SELECT * from cart WHERE pro_id = '$pro_id' AND ip_add = '$ip'");
+        //     $check_cart->execute();
 
-            $row_check = $check_cart->rowCount();
+        //     $row_check = $check_cart->rowCount();
 
-            if($row_check==1)
-            {
-                echo "<script>alert('This product already in your cart!');</script>";
-            }
-            else
-            {
-                $add_cart = $con->prepare("INSERT INTO cart
-                (
-                    pro_id, 
-                    qty, 
-                    ip_add
-                ) 
-                values
-                (
-                    '$pro_id', 
-                    '1',
-                    '$ip'
-                )");
+        //     if($row_check==1)
+        //     {
+        //         echo "<script>alert('This product already in your cart!');</script>";
+        //     }
+        //     else
+        //     {
+        //         $add_cart = $con->prepare("INSERT INTO cart
+        //         (
+        //             pro_id, 
+        //             qty, 
+        //             ip_add
+        //         ) 
+        //         values
+        //         (
+        //             '$pro_id', 
+        //             '1',
+        //             '$ip'
+        //         )");
                         
-                if($add_cart->execute())
-                {
-                    echo "<script>window.open('index.php','_self');</script>";
-                }
-                else
-                {
-                    echo "<script>alert('Try Again');</script>";
-                }
+        //         if($add_cart->execute())
+        //         {
+        //             echo "<script>window.open('index.php','_self');</script>";
+        //         }
+        //         else
+        //         {
+        //             echo "<script>alert('Try Again');</script>";
+        //         }
+        //     }
+        // }
+            //check if product is already in the cart
+            if(!in_array($_GET['id'], $_SESSION['cart'])){
+                array_push($_SESSION['cart'], $_GET['id']);
+                $_SESSION['message'] = 'Product added to cart';
             }
-        }
+            else{
+                $_SESSION['message'] = 'Product already in cart';
+            }
+        
+            echo "<script>window.open('index.php','_self');</script>";
     }
 
     function cart_count()
     {
-        include("inc/db.php");
+        // include("inc/db.php");
 
-        $ip = getIp();
-        $get_cart_item = $con->prepare("SELECT * FROM cart WHERE ip_add='$ip'");
-        $get_cart_item->execute();
+        // $ip = getIp();
+        // $get_cart_item = $con->prepare("SELECT * FROM cart WHERE ip_add='$ip'");
+        // $get_cart_item->execute();
 
-        $count_cart = $get_cart_item->rowCount();
+        // $count_cart = $get_cart_item->rowCount();
 
-        echo $count_cart;
+        // echo $count_cart;
     }
     
     function cart_display()
     {
-        include("inc/db.php");
-        $ip = getIp();
-            $get_cart_item = $con->prepare("SELECT * FROM cart WHERE ip_add='$ip'");
-            $get_cart_item->setFetchMode(PDO:: FETCH_ASSOC);
-            $get_cart_item->execute();
-            $cart_empty = $get_cart_item->rowCount();
+        // include("inc/db.php");
+        // $ip = getIp();
+        //     $get_cart_item = $con->prepare("SELECT * FROM cart WHERE ip_add='$ip'");
+        //     $get_cart_item->setFetchMode(PDO:: FETCH_ASSOC);
+        //     $get_cart_item->execute();
+        //     $cart_empty = $get_cart_item->rowCount();
             
-            $net_total = "0";
-            if($cart_empty==0)
-            {
-                echo "<center><h2>No Items Found in your cart! <a href = 'index.php'>Continue Shopping</a></h2></center>";
-            }
-            else
-            {
-                if(isset($_POST['up_qty']))
-                {
-                    $quantity = $_POST['qty'];
+        //     $net_total = "0";
+        //     if($cart_empty==0)
+        //     {
+        //         echo "<center><h2>No Items Found in your cart! <a href = 'index.php'>Continue Shopping</a></h2></center>";
+        //     }
+        //     else
+        //     {
+        //         if(isset($_POST['up_qty']))
+        //         {
+        //             $quantity = $_POST['qty'];
     
-                    foreach($quantity as $key=>$value)
-                    {
-                        $update_qty = $con->prepare("UPDATE cart set qty = '$value' WHERE cart_id = '$key'");
-                        if($update_qty->execute())
-                        {
-                            echo "<script>window.open('cart.php','_self');</script>";
-                        }
-                    }
-                }   
-                echo "<table cellpadding='0' cellspacing = '0'>
-                        <tr>
-                            <th>Image</th>
-                            <th>Product Name</th>
-                            <th>Quantity</th>
-                            <th>Price</th>
-                            <th>Sub Total</th>
-                            <th>Remove</th>
-                        </tr>";
-                while($row=$get_cart_item->fetch()):
-                    $pro_id = $row['pro_id'];
+        //             foreach($quantity as $key=>$value)
+        //             {
+        //                 $update_qty = $con->prepare("UPDATE cart set qty = '$value' WHERE cart_id = '$key'");
+        //                 if($update_qty->execute())
+        //                 {
+        //                     echo "<script>window.open('cart.php','_self');</script>";
+        //                 }
+        //             }
+        //         }   
+        //         echo "<table cellpadding='0' cellspacing = '0'>
+        //                 <tr>
+        //                     <th>Image</th>
+        //                     <th>Product Name</th>
+        //                     <th>Quantity</th>
+        //                     <th>Price</th>
+        //                     <th>Sub Total</th>
+        //                     <th>Remove</th>
+        //                 </tr>";
+        //         while($row=$get_cart_item->fetch()):
+        //             $pro_id = $row['pro_id'];
     
-                    $get_pro = $con->prepare("SELECT * FROM product_tbl WHERE pro_id = '$pro_id'");
-                    $get_pro->setFetchMode(PDO:: FETCH_ASSOC);
-                    $get_pro->execute();
-                    $row_pro = $get_pro->fetch();
+        //             $get_pro = $con->prepare("SELECT * FROM product_tbl WHERE pro_id = '$pro_id'");
+        //             $get_pro->setFetchMode(PDO:: FETCH_ASSOC);
+        //             $get_pro->execute();
+        //             $row_pro = $get_pro->fetch();
     
-                    echo"<tr>
-                            <td>
-                                <img src ='../uploads/products/".$row_pro['pro_img']."' />
-                            </td>
-                            <td>
-                                ".$row_pro['pro_name']."
-                            </td>
-                            <td>
-                                <input type ='text'  name = 'qty[".$row['cart_id']."]' value='".$row['qty']."' /><input type = 'submit' name = 'up_qty' value = 'Save' />
-                            </td>
-                            <td>P".$row_pro['pro_price']."</td>
-                            <td>";
-                                $qty = $row['qty'];
-                                $pro_price = $row_pro['pro_price'];
-                                $sub_total = $pro_price*$qty;
-                                echo $sub_total;
+        //             echo"<tr>
+        //                     <td>
+        //                         <img src ='../uploads/products/".$row_pro['pro_img']."' />
+        //                     </td>
+        //                     <td>
+        //                         ".$row_pro['pro_name']."
+        //                     </td>
+        //                     <td>
+        //                         <input type ='text'  name = 'qty[".$row['cart_id']."]' value='".$row['qty']."' /><input type = 'submit' name = 'up_qty' value = 'Save' />
+        //                     </td>
+        //                     <td>P".$row_pro['pro_price']."</td>
+        //                     <td>";
+        //                         $qty = $row['qty'];
+        //                         $pro_price = $row_pro['pro_price'];
+        //                         $sub_total = $pro_price*$qty;
+        //                         echo $sub_total;
     
-                                $net_total = $net_total + $sub_total;
-                            echo"</td>
-                            <td><a href = 'delete.php?delete_id=".$row_pro['pro_id']."'>Delete</a></td>
-                        </tr>";
-                endwhile;
-                echo "<tr>
-                        <td></td>
-                        <td>
-                            <button id = 'buy_now'><a href = 'index.php'>Choose Another Product</a></button>
-                        </td>
-                        <td>
-                            <button id = 'check_out'>Checkout</button>
-                        </td>
+        //                         $net_total = $net_total + $sub_total;
+        //                     echo"</td>
+        //                     <td><a href = 'delete.php?delete_id=".$row_pro['pro_id']."'>Delete</a></td>
+        //                 </tr>";
+        //         endwhile;
+        //         echo "<tr>
+        //                 <td></td>
+        //                 <td>
+        //                     <button id = 'buy_now'><a href = 'index.php'>Choose Another Product</a></button>
+        //                 </td>
+        //                 <td>
+        //                     <button id = 'check_out'>Checkout</button>
+        //                 </td>
                     
-                        <td>
-                            <b>Net Total: </b>
-                        </td>
-                        <td>
-                            <b>P$net_total</b>
-                        </td>
-                    </tr>";
-                echo "<div class = 'Coupon'>
-                        <h2>Apply Coupon Code: </h2>
-                            <input type = 'text' name = 'coupon_code' />
-                            <input type = 'submit' name = 'coupon_code' value = 'Verify' />
-                    </div>";
-            }            
+        //                 <td>
+        //                     <b>Net Total: </b>
+        //                 </td>
+        //                 <td>
+        //                     <b>P$net_total</b>
+        //                 </td>
+        //             </tr>";
+        //         echo "<div class = 'Coupon'>
+        //                 <h2>Apply Coupon Code: </h2>
+        //                     <input type = 'text' name = 'coupon_code' />
+        //                     <input type = 'submit' name = 'coupon_code' value = 'Verify' />
+        //             </div>";
+        //     }    
+        $net_total = "0";
+        if(!empty($_SESSION['cart']))
+        {
+            include("inc/db.php");
+            $index = "0";
+            if(!isset($_SESSION['qty_array']))
+            {
+                $_SESSION['qty_array'] = array_fill(0, count($_SESSION['cart']), 1);
+            }
+            $display_cart = $con->prepare("SELECT * FROM cart WHERE cart_id IN (".implode(',',$_SESSION['cart']).")");
+            $display_cart->setFetchMode(PDO:: FETCH_ASSOC);
+            $display_cart->execute();
+            
+            while($row_cart = $display_cart->fetch()):
+            endwhile;
+
+        }
     }
 
     function delete_cart_items()
     {
-        include("inc/db.php");
-        if(isset($_GET['delete_id']))
-        {
-            $pro_id = $_GET['delete_id'];
-            $delete_pro = $con->prepare("DELETE FROM cart WHERE pro_id = '$pro_id'");
+        // include("inc/db.php");
+        // if(isset($_GET['delete_id']))
+        // {
+        //     $pro_id = $_GET['delete_id'];
+        //     $delete_pro = $con->prepare("DELETE FROM cart WHERE pro_id = '$pro_id'");
             
-            if($delete_pro->execute())
-            {
-                echo "<script>alert('Item Removed Successfully!');</script>";
-                echo "<script>window.open('cart.php', '_self');</script>";
-            }
-        }
+        //     if($delete_pro->execute())
+        //     {
+        //         echo "<script>alert('Item Removed Successfully!');</script>";
+        //         echo "<script>window.open('cart.php', '_self');</script>";
+        //     }
+        // }
+        $key = array_search($_GET['id'], $_SESSION['cart']);	
+        unset($_SESSION['cart'][$key]);
+    
+        unset($_SESSION['qty_array'][$_GET['index']]);
+        //rearrange array after unset
+        $_SESSION['qty_array'] = array_values($_SESSION['qty_array']);
+    
+        $_SESSION['message'] = "Product deleted from cart";
+        header('location: view_cart.php');
+    }
+
+    function update_cart_quantity()
+    {
+        $key = array_search($_GET['id'], $_SESSION['cart']);	
+        unset($_SESSION['cart'][$key]);
+    
+        unset($_SESSION['qty_array'][$_GET['index']]);
+        //rearrange array after unset
+        $_SESSION['qty_array'] = array_values($_SESSION['qty_array']);
+    
+        $_SESSION['message'] = "Product deleted from cart";
+        header('location: view_cart.php');
+    }
+
+    function checkOut()
+    {
+        $_SESSION['message'] = 'You need to login to checkout';
+	    header('location: view_cart.php');
     }
     
     function dog_food_products()
