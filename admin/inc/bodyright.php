@@ -9,6 +9,7 @@
 
 <div id = "bodyright">
     <?php 
+    
         if(isset($_GET['edit_cat']))
         {
             include("edit_cat.php");

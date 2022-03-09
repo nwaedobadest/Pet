@@ -246,7 +246,7 @@
             echo "<tr>
                     <td>".$i++."</td>
                     <td>".$row['cat_name']."</td>
-                    <td><a href='index.php?edit_cat=".$row['prod_id']."'><i class='fa-solid fa-pencil'></i></a></td>
+                    <td><a href='index.php?edit_cat=".$row['prod_id']."'>Edit</a></td>
                     <td><a href='delete_cat.php?delete_cat=".$row['prod_id']."'>Delete</a></td>
                  </tr>";
         endwhile;
