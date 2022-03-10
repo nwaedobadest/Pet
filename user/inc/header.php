@@ -18,8 +18,26 @@
         <form method = "get" action = "search.php" enctype="multipart/form-data">
             <input type="text" name = 'user_query' placeholder = "Search products here..">
             <button id = "search_btn" name = "search"><img src = "../uploads/search.svg" class = "searchIcon"></button>
+            <div id = 'link'>
+
+            <?php
+                if(isset($_SESSION['user_username']))
+                {
+                echo "<li>".$_SESSION['user_username']."</li>";
+                echo "
+                <a>".$_SESSION['user_username']."</a>
+                <a href = 'logout.php'>Log Out</a>
+                ";
+                }
+                else
+                {
+                echo "<button id = 'login_btn'><a href = 'login.php'>LOGIN</a></button>";
+        
+                }   
+                ?>
+            </div>
+
             <button id = "cart_btn"><a href = 'cart.php'>Cart (<?php echo count($_SESSION['cart']); ?>)</a></button>
-            <button id = "cart_btn"><a href = 'cart.php'>LOGIN</a></button>
         </form>
     </div><!-- <End of Search> -->
 
