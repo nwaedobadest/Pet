@@ -7,7 +7,7 @@
 #header {
   background: white;
   /*box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);*/
-  height: 70px;
+  height: 60px;
   width: 100vw;
   position: fixed;
   display: inline-flex;
@@ -29,12 +29,45 @@
 }
 
 #link {
-  width: 11%;
+  width: 4%;
+  height: 80%;
+  margin-left: 30px;
+}
+.dropcontent {
+  list-style-type: none;
+  display: none;
+  margin-top: 40px;
+  margin-left: -5%;
+  position: absolute;
+  background-color: #f9f9f9;
+  width: 250px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+}
+#link:hover .dropcontent {
+  display: inline;
 }
 
-#link a {
+.dropcontent li a {
   padding: 10px;
+  width: 100%;
   text-decoration: none;
+  color: #444;
+}
+.dropcontent li {
+  width: 100%;
+  display: inline-flex;
+}
+.dropcontent li:hover {
+  background: #ddd;
+  transition: 0.5s;
+}
+.profileImg {
+  border-radius: 30px;
+  width: 40px;
+  height: 40px;
+  color: #333;
+  float: center;
+  margin-top: 10px;
 }
 #search {
   width: 100%;
@@ -217,7 +250,7 @@
   height: 40px;
   background: #ddd;
   overflow: hidden;
-  padding-top: 70px;
+  padding-top: 60px;
 }
 
 #navbar ul {
@@ -505,10 +538,12 @@
 #bodyright {
   height: 500px;
   border-radius: 3px;
-  width: 25%;
+  width: 24%;
   background: #fff;
   margin: 1% 1% 1% 0%;
   float: left;
+  border: 1px solid black;
+  height: 100;
 }
 
 #bodyright h2 {

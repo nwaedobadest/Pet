@@ -23,16 +23,20 @@
             <?php
                 if(isset($_SESSION['user_username']))
                 {
-                echo "<li>".$_SESSION['user_username']."</li>";
+                echo "<img class='profileImg' src = '../uploads/userIcon.svg'>";
                 echo "
-                <a>".$_SESSION['user_username']."</a>
-                <a href = 'logout.php'>Log Out</a>
+                <ul class ='dropcontent'>
+                <li><a>My Profile</a></li>
+                <li><a href = 'logout.php'>Log Out</a></li>
+                </ul>
                 ";
                 }
                 else
                 {
                 echo "<button id = 'login_btn'><a href = 'login.php'>LOGIN</a></button>";
-        
+                echo "<script type='text/javascript'> 
+                document.getElementById('link').style.width = '11%';
+                </script>"; 
                 }   
                 ?>
             </div>
