@@ -209,7 +209,8 @@
                              </tr>";
 
             while($row_pro = $display_cart->fetch()):
-                echo "<tr>
+                echo "<form method = '' enctype = 'multipart/form-data'>
+                        <tr>
                             <td>
                             <img src = '../uploads/products/".$row_pro['pro_img']."'  />
                             </td>
@@ -239,7 +240,8 @@
                                 <input type = 'hidden' value = '".$row_pro['pro_id']."' name = 'pro_id'/>
                                 <a href = 'delete_cart.php?delete_cart=".$row_pro['pro_id']."'><button id = 'pro_btn'>X</button></a>
                             </td>
-                        </tr>";
+                        </tr>
+                    </form>";
             endwhile;
         }
         else
@@ -274,19 +276,23 @@
     {
         if(isset($_POST['update_cart_qty']))
         {
-            $new_cart = array();
-            foreach ($_SESSION['cart'] as $item) 
-            {
-                if ($item != $_POST['pro_id']) 
-                {
-                    array_push($new_cart);
-                }
-            }
-            // fill new cart with the n number of product id
-            array_push($new_cart, array_fill(0, $_POST['pro_quantity'], $_POST['pro_id']));
-            // update session cart
-            $_SESSION['cart'] = $new_cart;
-            header("location: cart.php");
+            // $new_cart = array();
+            // foreach ($_SESSION['cart'] as $item) 
+            // {
+            //     if ($item != $_POST['pro_id']) 
+            //     {
+            //         array_push($new_cart);
+            //     }
+            // }
+            // // fill new cart with the n number of product id
+            // array_push($new_cart, array_fill(0, $_POST['pro_quantity'], $_POST['pro_id']));
+            // // update session cart
+            // $_SESSION['cart'] = $new_cart;
+            // header("location: cart.php");
+            $id = isset($_POST['pro_id']) ? $_POST['pro_id'] : "";
+            $qty = $_POST['pro_quantity'];
+            echo $qty;
+            echo "<script>window.open('cart.php', '_self;);</script>";
         }
     }
 
