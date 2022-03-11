@@ -17,30 +17,44 @@
     <div id = "search">
         <form method = "get" action = "search.php" enctype="multipart/form-data">
             <input type="text" name = 'user_query' placeholder = "Search products here..">
-            <button id = "search_btn" name = "search">Search</button>
-            <button id = "cart_btn"><a href = 'cart.php'>Cart (<?php echo count($_SESSION['cart']); ?>)</a></button>
-        </form>
-    </div><!-- <End of Search> -->
+            <button id = "search_btn" name = "search"><img src = "../uploads/search.svg" class = "searchIcon"></button>
+            <div id = 'link'>
 
-    
-    <div id = 'link'>
-        <ul>
             <?php
                 if(isset($_SESSION['user_username']))
                 {
+<<<<<<< HEAD
                     echo "<ul>
                             <li>".$_SESSION['user_username']."</li>
                             <li><a href = 'myProfile.php?username=".$_SESSION['user_username']."'>My Profile<a/></li>
                             <li><a href = 'logout.php'>Log Out</a></li>
                          </ul>";
+=======
+                echo "<img class='profileImg' src = '../uploads/userIcon.svg'>";
+                echo "
+                <ul class ='dropcontent'>
+                <li><a>My Profile</a></li>
+                <li><a href = 'logout.php'>Log Out</a></li>
+                </ul>
+                ";
+>>>>>>> 5e995fd3e6e0b6458b35ab8f0e347bb14f1c815a
                 }
                 else
                 {
-                    echo "<li><a href = 'login.php'>Log In</a></li>";
-                    echo "<li><a href = 'signup.php'>Sign Up</a></li>";
-                    echo "<li><a href = 'Donate'>Donate</a></li>";
-                }
-            ?>
-        </ul>
-    </div><!-- <End of Link> -->
+                echo "<button id = 'login_btn'><a href = 'login.php'>LOGIN</a></button>";
+                echo "<script type='text/javascript'> 
+                document.getElementById('link').style.width = '11%';
+                </script>"; 
+                }   
+                ?>
+            </div>
+
+            <button id = "cart_btn"><a href = 'cart.php'>Cart (<?php echo count($_SESSION['cart']); ?>)</a></button>
+        </form>
+    </div><!-- <End of Search> -->
+
+    
+
+    
+   <!-- <End of Link> -->
 </div><!-- <End of Header> -->

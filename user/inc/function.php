@@ -172,7 +172,20 @@
 
     function cart_count()
     {
+<<<<<<< HEAD
         
+=======
+        // include("inc/db.php");
+
+        // $ip = getIp();
+        // $get_cart_item = $con->prepare("SELECT * FROM cart WHERE ip_add='$ip'");
+        // $get_cart_item->execute();
+
+        // $count_cart = $get_cart_item->rowCount();
+
+        // echo $count_cart;
+        //HEHE
+>>>>>>> 5e995fd3e6e0b6458b35ab8f0e347bb14f1c815a
     }
     
     function cart_display()
