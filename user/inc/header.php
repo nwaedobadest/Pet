@@ -23,13 +23,6 @@
             <?php
                 if(isset($_SESSION['user_username']))
                 {
-<<<<<<< HEAD
-                    echo "<ul>
-                            <li>".$_SESSION['user_username']."</li>
-                            <li><a href = 'myProfile.php?username=".$_SESSION['user_username']."'>My Profile<a/></li>
-                            <li><a href = 'logout.php'>Log Out</a></li>
-                         </ul>";
-=======
                 echo "<img class='profileImg' src = '../uploads/userIcon.svg'>";
                 echo "
                 <ul class ='dropcontent'>
@@ -37,7 +30,6 @@
                 <li><a href = 'logout.php'>Log Out</a></li>
                 </ul>
                 ";
->>>>>>> 5e995fd3e6e0b6458b35ab8f0e347bb14f1c815a
                 }
                 else
                 {
