@@ -1,6 +1,12 @@
-<div id ="signUpForm">
-    <h3>Sign Up</h3>
-    <form method = "POST" enctype = "multipart/form-data">
+<html>
+    <head>
+
+    </head>
+    <body>
+    <div id ="signUpForm">
+        <div class="container">
+        <h3>Sign Up</h3>
+        <form method = "POST" enctype = "multipart/form-data">
         <table>
             <tr>
                 <td>Enter Username: </td>
@@ -25,10 +31,45 @@
             </tr>
         </table>
         <button name = "sign_up" id = "sign_up">Sign Up</button>
-    </form>
+        </form>
+        </div>
+  
 </div>
 
 <?php 
     include("inc/function.php");
     echo signUp();
 ?>
+    </body>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        #signUpForm{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100vw;
+            height: 100vh;
+        }
+        .container{
+            display: flex;
+            justify-content: center;
+            border-radius: 5px;
+            margin-left: 15%;
+            margin-right: 15%;
+            background: white;
+            width: 60%;
+            height: 100%;
+            box-shadow:4px 6px 16px 0px rgba(0, 0, 0, 0.2);
+           
+        }
+
+        @media(max-width: 680px) {
+            .container{
+                width: 100%;
+            }
+        }
+    </style>
+</html>

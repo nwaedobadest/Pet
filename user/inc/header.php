@@ -26,7 +26,7 @@
                 echo "<img class='profileImg' src = '../uploads/userIcon.svg'>";
                 echo "
                 <ul class ='dropcontent'>
-                <li><a>My Profile</a></li>
+                <li><a href = 'myProfile.php'>My Profile</a></li>
                 <li><a href = 'logout.php'>Log Out</a></li>
                 </ul>
                 ";
