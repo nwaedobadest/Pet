@@ -31,7 +31,7 @@
                         <input class = "input"type="password" name = "user_password"  placeholder = "Password"/></br>
                         <p>Or <a href = "/Pet/admin/login.php">Log in as Pet Center?</a></p>
                             <button  class = "button" name = "login_user" id = "login_user" >LOGIN</button>
-                            <button  class = "signup" name = "login_user" id = "login_user" >SIGNUP</button>
+                            <button  class = "signup" name = "signup" id = "signup"><a href = "/Pet/user/signup.php">SIGNUP</a></button>
                         </br>
                      
                     </form>
@@ -108,6 +108,11 @@
             border: .8px solid #eee;
             color: #888;
         }
+        .signup a{
+            text-decoration: none;
+             color: #888;
+             display: block;
+        }
         .signup:hover{
             background:  #91e7d9;
            transition: .5s;
@@ -126,9 +131,6 @@
        .petsociety{
            margin-left: 10px;
            color: #444;
-       }
-       a{
-           margin-top: 40px;
        }
     </style>
     <script>
@@ -151,7 +153,6 @@
                   button.style.color = "white";
                   }
             }
-
         </script>
 </html>
 

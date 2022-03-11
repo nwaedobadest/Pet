@@ -3,7 +3,7 @@
 <ul>
         <li class =  "donate"><a href = "index.php"><img src="../uploads/donation2.1.svg" class="navicons">Donations</a></li>
             <ul class="subList">
-                <li><a href="index.php?cat">Manage Donations</a></li>
+                <li><a href="index.php?manage_donation">Manage Donations</a></li>
                 <li><a href="index.php?cat">Manage Partners</a></li>
                 <li><a href="index.php?ledger">Ledger</a></li>
             </ul>
@@ -28,6 +28,10 @@
     if(isset($_GET['cat']))
     {
         include("cat.php");
+    }
+    if(isset($_GET['manage_donation']))
+    {
+        include("manage_donation.php");
     }
     if(isset($_GET['ledger']))
     {

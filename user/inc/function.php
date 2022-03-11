@@ -223,6 +223,7 @@
         // $count_cart = $get_cart_item->rowCount();
 
         // echo $count_cart;
+        //HEHE
     }
     
     function cart_display()
