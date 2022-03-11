@@ -172,9 +172,6 @@
 
     function cart_count()
     {
-<<<<<<< HEAD
-        
-=======
         // include("inc/db.php");
 
         // $ip = getIp();
@@ -185,7 +182,6 @@
 
         // echo $count_cart;
         //HEHE
->>>>>>> 5e995fd3e6e0b6458b35ab8f0e347bb14f1c815a
     }
     
     function cart_display()
