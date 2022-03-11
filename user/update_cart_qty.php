@@ -1,4 +1,4 @@
 <?php
     include("inc/function.php");
-    echo signUp();
+    echo update_cart_quantity();
 ?>

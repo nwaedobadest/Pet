@@ -97,7 +97,7 @@
                 if($update_user->execute())
                 {
                     echo "<script>alert('Your Information Successfully Updated!');</script>";
-                    echo "<script>window.open('/Pet/admin/adminIndex.php?login_user=".$_SESSION['admin_name']."', '_self');</script>";
+                    echo "<script>window.open('/Pet/admin/index.php?login_user=".$_SESSION['admin_name']."', '_self');</script>";
                 }
             }
         }
@@ -114,7 +114,7 @@
             if($add_cat->execute())
             {
             echo "<script>alert('Category Added Successfully!');</script>"; 
-            echo "<script>window.open('adminIndex.php?viewall_cat','_self');</script>";
+            echo "<script>window.open('index.php?viewall_cat','_self');</script>";
             }
             else
             {

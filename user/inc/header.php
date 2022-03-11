@@ -28,7 +28,6 @@
             <?php
                 if(isset($_SESSION['user_username']))
                 {
-                    // echo "<li>".$_SESSION['user_username']."</li>";
                     echo "<ul>
                             <li>".$_SESSION['user_username']."</li>
                             <li><a href = 'myProfile.php?username=".$_SESSION['user_username']."'>My Profile<a/></li>
